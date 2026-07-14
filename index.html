@@ -78,7 +78,7 @@
   <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
 </div>
 <div class="hint" id="hint-text"></div>
-<!-- BUILD_VERSION: v2.0-listfix -->
+<!-- BUILD_VERSION: v2.1-fulldays -->
 <div class="legend">
   <span class="li"><span class="sq" style="background:#2563eb"></span>신저가</span>
   <span class="li"><span class="sq" style="background:#dc2626"></span>신고가</span>
@@ -170,7 +170,7 @@ function switchTF(tf) {
   fig.layout.height = chartHeight();
   fig.layout.dragmode = 'pan';
   if (IS_MOBILE || document.body.classList.contains('fullscreen')) {
-    fig.layout.margin = {l:46, r:46, t:34, b:28};
+    fig.layout.margin = {l:46, r:46, t:34, b:52};
   }
   fig.layout.showlegend = false;  // 커스텀 HTML 범례 사용
   // 모바일: Plotly 자체 hover 완전 차단 (탭 시 커스텀 툴팁만 사용)
@@ -262,49 +262,73 @@ function switchTF(tf) {
         try {
           const rect = gd.getBoundingClientRect();
           const fl = gd._fullLayout;
-          const xa = fl.xaxis, ya = fl.yaxis;
+          const xa = fl.xaxis, ya = fl.yaxis, ya3 = fl.yaxis3;
 
-          // 픽셀 → 데이터 값 변환 (축 오프셋 기준)
           const px = clientX - rect.left - xa._offset;
-          const py = clientY - rect.top  - ya._offset;
           if (px < 0 || px > xa._length) return;
-          if (py < 0 || py > ya._length) return;   // 위쪽(코스피) 차트 밖이면 무시
-
           const t = new Date(xa.p2d(px)).getTime();
-          const v = ya.p2d(py);
           const idx = nearestIdx(t);
-
-          // ✅ 캔들 몸통 판정: 좌우 반 봉 이내 + 세로로 저가~고가 범위(약간 여유)
           if (Math.abs(t - candleTimes[idx]) > barMs * 0.55) return;
+
+          // ── 아래(종목수) 차트 영역 탭? ──
+          if (ya3) {
+            const py3 = clientY - rect.top - ya3._offset;
+            if (py3 >= 0 && py3 <= ya3._length) {
+              const bars = gd.data.filter(tr => tr.type === 'bar');
+              if (bars.length >= 2) {
+                const hiCnt = bars[0].y[idx], loCnt = bars[1].y[idx];
+                if (!isFinite(hiCnt) || !isFinite(loCnt)) return;
+                const v3 = ya3.p2d(py3);
+                const tol3 = Math.abs(ya3.p2d(py3 + 14) - v3);
+                if (v3 > hiCnt + loCnt + tol3) return;  // 막대 위 빈 공간 → 무시
+                renderTip(clientX, clientY,
+                  '<div class="tt-date">' + String(candle.x[idx]).slice(0,10) + '</div>' +
+                  '신고가 <span class="up">' + Math.round(hiCnt) + '개</span><br>' +
+                  '신저가 <span class="dn">' + Math.round(loCnt) + '개</span>');
+              }
+              return;
+            }
+          }
+
+          // ── 위(코스피) 차트 영역 ──
+          const py = clientY - rect.top - ya._offset;
+          if (py < 0 || py > ya._length) return;
+          const v = ya.p2d(py);
+
+          // ✅ 캔들 몸통 판정: 세로로 저가~고가 범위(약간 여유)
           const lo = candle.low[idx], hi = candle.high[idx];
           if (!isFinite(lo) || !isFinite(hi) || !isFinite(v)) return;  // 데이터 이상 시 거부
           const tol = Math.abs(ya.p2d(py + 12) - v);   // 12픽셀 허용 오차
           if (v < lo - tol || v > hi + tol) return;    // 빈 공간 터치 → 무시
 
-          // ── 커스텀 툴팁 렌더 ──
-          const tip = document.getElementById('tap-tip');
+          // ── 코스피 캔들 툴팁 ──
           const o = candle.open[idx], h = candle.high[idx],
                 l = candle.low[idx],  c = candle.close[idx];
           const up = c >= o;
           const ratioVal = (ratioIdx >= 0) ? gd.data[ratioIdx].y[idx] : null;
           const f = n => Number(n).toLocaleString('ko-KR', {maximumFractionDigits: 2});
           const dateStr = String(candle.x[idx]).slice(0, 16).replace('T',' ');
-          tip.innerHTML =
+          renderTip(clientX, clientY,
             '<div class="tt-date">' + dateStr + '</div>' +
             '시가 ' + f(o) + '<br>' +
             '고가 <span class="up">' + f(h) + '</span><br>' +
             '저가 <span class="dn">' + f(l) + '</span><br>' +
             '종가 <span class="' + (up ? 'up' : 'dn') + '">' + f(c) + (up ? ' ▲' : ' ▼') + '</span>' +
-            (ratioVal !== null ? '<br>비율 <b>' + f(ratioVal) + '%</b>' : '');
-          tip.style.display = 'block';
-          const tw = tip.offsetWidth, th = tip.offsetHeight;
-          let tx = clientX + 14, ty = clientY - th - 14;
-          if (tx + tw > window.innerWidth - 6) tx = clientX - tw - 14;
-          if (tx < 6) tx = 6;
-          if (ty < 6) ty = clientY + 18;
-          tip.style.left = tx + 'px';
-          tip.style.top  = ty + 'px';
+            (ratioVal !== null ? '<br>비율 <b>' + f(ratioVal) + '%</b>' : ''));
         } catch (err) { /* 무시 */ }
+      }
+
+      function renderTip(clientX, clientY, html) {
+        const tip = document.getElementById('tap-tip');
+        tip.innerHTML = html;
+        tip.style.display = 'block';
+        const tw = tip.offsetWidth, th = tip.offsetHeight;
+        let tx = clientX + 14, ty = clientY - th - 14;
+        if (tx + tw > window.innerWidth - 6) tx = clientX - tw - 14;
+        if (tx < 6) tx = 6;
+        if (ty < 6) ty = clientY + 18;
+        tip.style.left = tx + 'px';
+        tip.style.top  = ty + 'px';
       }
 
       function hideTip() {
