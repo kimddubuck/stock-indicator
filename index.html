@@ -78,7 +78,7 @@
   <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
 </div>
 <div class="hint" id="hint-text"></div>
-<!-- BUILD_VERSION: v2.3-tapguard -->
+<!-- BUILD_VERSION: v2.4-smooth -->
 <div class="legend">
   <span class="li"><span class="sq" style="background:#2563eb"></span>신저가</span>
   <span class="li"><span class="sq" style="background:#dc2626"></span>신고가</span>
@@ -122,7 +122,7 @@ function chartHeight() {
 // ── 키움 스타일: 보이는 구간에 맞춰 Y축 자동 스케일 ──
 let fitting = false;  // 무한루프 방지 플래그
 
-function autoFitY(gd, xrOverride) {
+function autoFitY(gd, xrOverride, immediate) {
   if (fitting) return;
   const candle = gd.data.find(t => t.type === 'candlestick');
   if (!candle) return;
@@ -131,12 +131,14 @@ function autoFitY(gd, xrOverride) {
   const t0 = new Date(xr[0]).getTime();
   const t1 = new Date(xr[1]).getTime();
 
+  // 시간축을 숫자로 사전 캐시 (한 번만)
+  if (!gd._ct) gd._ct = candle.x.map(x => new Date(x).getTime());
+  const ct = gd._ct;
+
   // 보이는 구간의 캔들 min/max
   let lo = Infinity, hi = -Infinity;
-  const xs = candle.x;
-  for (let i = 0; i < xs.length; i++) {
-    const t = new Date(xs[i]).getTime();
-    if (t >= t0 && t <= t1) {
+  for (let i = 0; i < ct.length; i++) {
+    if (ct[i] >= t0 && ct[i] <= t1) {
       if (candle.low[i]  < lo) lo = candle.low[i];
       if (candle.high[i] > hi) hi = candle.high[i];
     }
@@ -144,23 +146,29 @@ function autoFitY(gd, xrOverride) {
   if (!isFinite(lo)) return;
   const pad = (hi - lo) * 0.06 || 1;
 
-  // 보이는 구간의 종목수 max (막대 2개 스택 합)
+  // 보이는 구간의 종목수 max
   const bars = gd.data.filter(t => t.type === 'bar');
   let cmax = 0;
   if (bars.length >= 2) {
-    const bx = bars[0].x;
-    for (let i = 0; i < bx.length; i++) {
-      const t = new Date(bx[i]).getTime();
-      if (t >= t0 && t <= t1) {
+    for (let i = 0; i < ct.length; i++) {
+      if (ct[i] >= t0 && ct[i] <= t1) {
         const s = (bars[0].y[i] || 0) + (bars[1].y[i] || 0);
         if (s > cmax) cmax = s;
       }
     }
   }
 
+  const yRange = [lo - pad, hi + pad];
+  const y3Range = cmax > 0 ? [0, cmax * 1.1] : null;
+  if (immediate) {
+    // 제스처 중: 내부 값만 세팅 (relayout은 rAF 루프가 일괄 처리 → 빠름)
+    gd.layout.yaxis.range = yRange;
+    if (y3Range && gd.layout.yaxis3) gd.layout.yaxis3.range = y3Range;
+    return;
+  }
   fitting = true;
-  const upd = {'yaxis.range': [lo - pad, hi + pad]};
-  if (cmax > 0) upd['yaxis3.range'] = [0, cmax * 1.1];
+  const upd = {'yaxis.range': yRange};
+  if (y3Range) upd['yaxis3.range'] = y3Range;
   Plotly.relayout(gd, upd).then(() => { fitting = false; });
 }
 
@@ -211,27 +219,37 @@ function switchTF(tf) {
     }
     function toISO(t) { return new Date(t).toISOString().replace('T',' ').slice(0,19); }
 
-    let rafBusy = false;
-    function setXR(t0, t1) {
-      // 클램프: 최신(우측)은 dataXmax 넘지 않고, 과거는 dataXmin까지
+    // 클램프만 담당 (그리기는 rAF 루프가)
+    function clampXR(t0, t1) {
       let span = t1 - t0;
-      const minSpan = barMs * 5;                 // ✅ 최대 확대 = 5봉 (일봉이면 5영업일)
+      const minSpan = barMs * 5;                 // 최대 확대 = 5봉
       const maxSpan = dataXmax - dataXmin;
       if (span < minSpan) { span = minSpan; t0 = t1 - span; }
       if (span > maxSpan) { span = maxSpan; }
       if (t1 > dataXmax) { t1 = dataXmax; t0 = t1 - span; }
       if (t0 < dataXmin) { t0 = dataXmin; t1 = Math.min(t0 + span, dataXmax); }
-      if (rafBusy) return;
-      rafBusy = true;
-      requestAnimationFrame(() => {
-        const iso = [toISO(t0), toISO(t1)];
-        fitting = true;
-        Plotly.relayout(gd, {'xaxis.range': iso}).then(() => {
-          fitting = false;
-          autoFitY(gd, iso);
-          rafBusy = false;
-        });
-      });
+      return [t0, t1];
+    }
+
+    // ── 부드러운 실시간 렌더링: 최신 목표만 저장, rAF 루프가 계속 그림 ──
+    let pendingXR = null;      // 다음에 그릴 범위
+    let rafLoopOn = false;
+    function pumpRAF() {
+      if (!pendingXR) { rafLoopOn = false; return; }
+      const [t0, t1] = pendingXR;
+      pendingXR = null;
+      const iso = [toISO(t0), toISO(t1)];
+      fitting = true;
+      // relayout 대신 가벼운 내부 API로 축만 갱신 → 빠름
+      gd.layout.xaxis.range = iso;
+      if (gd.layout.xaxis2) gd.layout.xaxis2.range = iso;
+      autoFitY(gd, iso, true);   // Y도 즉시(내부) 반영
+      Plotly.relayout(gd, {'xaxis.range': iso}).then(() => { fitting = false; });
+      requestAnimationFrame(pumpRAF);
+    }
+    function setXR(t0, t1) {
+      pendingXR = clampXR(t0, t1);
+      if (!rafLoopOn) { rafLoopOn = true; requestAnimationFrame(pumpRAF); }
     }
 
     if (IS_MOBILE) {
