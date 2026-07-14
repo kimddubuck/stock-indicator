@@ -29,19 +29,19 @@
     padding:11px 16px; border-radius:14px; font-size:14px; cursor:pointer;
     box-shadow:0 2px 5px rgba(61,53,41,0.08); }
   #fs-btn:hover { background:#fdf8ef; }
-  .hint { text-align:center; font-size:11.5px; color:#a89a83; padding:0 12px 6px; }
+  .hint { text-align:center; font-size:1px; color:transparent; padding:0; margin:0; height:0; }
   /* 커스텀 범례: 4개 균등 배치, 기호와 글자 밀착 */
   .legend { display:flex; justify-content:center; align-items:center; gap:24px;
     padding:2px 6px 4px; font-size:13px; font-weight:600; color:#37352f; }
   /* 차트 제목 (HTML) */
-  .ctitle { text-align:center; font-size:15px; font-weight:700; color:#37352f;
-    padding:6px 8px 2px; }
+  .ctitle { text-align:center; font-size:15px; font-weight:700; color:#3d3529;
+    padding:2px 8px 2px; }
   .legend-top { padding-bottom:4px; padding-top:0; }
   .legend-mid { padding-top:2px; padding-bottom:2px; }
   #chart-wrap { position:relative; width:100%; }
   /* 종목수 차트의 제목+범례를 두 차트 사이 공간에 겹쳐 배치 */
   .mid-overlay { position:absolute; left:0; right:0; z-index:5;
-    background:rgba(247,246,243,0.9); pointer-events:none; }
+    background:#f5f0e4; pointer-events:none; }
   .mid-overlay .ctitle { padding:2px 8px 0; }
   .legend .li { display:inline-flex; align-items:center; }
   .legend .sq { width:12px; height:12px; border-radius:2px; margin-right:4px; }
@@ -90,8 +90,7 @@
   <button class="tf-btn" data-tf="일봉" onclick="switchTF('일봉')">일봉</button><button class="tf-btn" data-tf="4시간봉" onclick="switchTF('4시간봉')">4시간봉</button><button class="tf-btn" data-tf="1시간봉" onclick="switchTF('1시간봉')">1시간봉</button>
   <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
 </div>
-<div class="hint" id="hint-text"></div>
-<!-- BUILD_VERSION: v2.9-titles -->
+<!-- BUILD_VERSION: v3.0-clean -->
 <div class="ctitle" id="title-top">코스피 vs 지표</div>
 <div class="legend legend-top">
   <span class="li"><span class="ln"></span>비율(%)</span>
@@ -119,9 +118,7 @@ const PAN_SENSITIVITY  = 1.0;
 const PINCH_THRESHOLD  = 3;   // 이 픽셀 이상 벌어져야 줌 시작 (작을수록 예민)
 const DRAG_THRESHOLD   = 6;   // 이 픽셀 이상 움직여야 이동 시작
 
-document.getElementById('hint-text').textContent = IS_MOBILE
-  ? "한 손가락으로 좌우 이동 · 두 손가락으로 확대/축소 · 캔들 탭하면 상세"
-  : "드래그로 이동 · 휠로 확대/축소 · 캔들 클릭하면 상세";
+// (힌트 문구 제거됨)
 
 const CONFIG = {
   scrollZoom: true,
@@ -209,7 +206,7 @@ function switchTF(tf) {
   fig.layout.height = chartHeight();
   fig.layout.dragmode = 'pan';
   if (IS_MOBILE || document.body.classList.contains('fullscreen')) {
-    fig.layout.margin = {l:46, r:46, t:16, b:48};
+    fig.layout.margin = {l:46, r:46, t:12, b:44};
   }
   fig.layout.showlegend = false;  // 커스텀 HTML 범례 사용
   // 모바일: Plotly 자체 hover 완전 차단 (탭 시 커스텀 툴팁만 사용)
