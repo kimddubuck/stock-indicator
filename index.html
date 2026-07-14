@@ -36,7 +36,7 @@
   /* 차트 제목 (HTML) */
   .ctitle { text-align:center; font-size:15px; font-weight:700; color:#3d3529;
     padding:2px 8px 2px; }
-  .legend-top { padding-bottom:14px; padding-top:0; }
+  .legend-top { padding-bottom:0; padding-top:0; margin-bottom:-4px; }
   .legend-mid { padding-top:2px; padding-bottom:2px; }
   #chart-wrap { position:relative; width:100%; }
   /* 종목수 차트의 제목+범례를 두 차트 사이 공간에 겹쳐 배치 */
@@ -90,7 +90,7 @@
   <button class="tf-btn" data-tf="일봉" onclick="switchTF('일봉')">일봉</button><button class="tf-btn" data-tf="4시간봉" onclick="switchTF('4시간봉')">4시간봉</button><button class="tf-btn" data-tf="1시간봉" onclick="switchTF('1시간봉')">1시간봉</button>
   <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
 </div>
-<!-- BUILD_VERSION: v3.1-gap -->
+<!-- BUILD_VERSION: v3.2-tight -->
 <div class="ctitle" id="title-top">코스피 vs 지표</div>
 <div class="legend legend-top">
   <span class="li"><span class="ln"></span>비율(%)</span>
@@ -206,7 +206,7 @@ function switchTF(tf) {
   fig.layout.height = chartHeight();
   fig.layout.dragmode = 'pan';
   if (IS_MOBILE || document.body.classList.contains('fullscreen')) {
-    fig.layout.margin = {l:46, r:46, t:12, b:44};
+    fig.layout.margin = {l:46, r:46, t:4, b:44};
   }
   fig.layout.showlegend = false;  // 커스텀 HTML 범례 사용
   // 모바일: Plotly 자체 hover 완전 차단 (탭 시 커스텀 툴팁만 사용)
