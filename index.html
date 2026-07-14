@@ -136,8 +136,14 @@ function switchTF(tf) {
   fig.layout.dragmode = 'pan';
   if (IS_MOBILE || document.body.classList.contains('fullscreen')) {
     fig.layout.margin = {l:46, r:46, t:74, b:34};
-    if (fig.layout.legend) fig.layout.legend.font = {size:10};
   }
+  // 범례 4개(신저가/신고가/비율/코스피)를 무조건 한 줄에
+  fig.layout.legend = Object.assign({}, fig.layout.legend, {
+    entrywidth: 0.24, entrywidthmode: 'fraction',
+    font: {size: IS_MOBILE ? 9 : 11}
+  });
+  // 모바일: 제스처 중 툴팁 방지 (탭할 때만 수동 표시)
+  if (IS_MOBILE) fig.layout.hovermode = 'x unified';
 
   // ── 키움 스타일 축 설정 ──
   const candle = fig.data.find(t => t.type === 'candlestick');
@@ -160,6 +166,12 @@ function switchTF(tf) {
 
     const dataXmin = new Date(candle.x[0]).getTime();
     const dataXmax = new Date(candle.x[candle.x.length - 1]).getTime();
+    const candleTimes = candle.x.map(x => new Date(x).getTime());
+    // 봉 간격(중앙값) → 최대 확대 = 5봉까지만
+    const _diffs = [];
+    for (let i = 1; i < candleTimes.length; i++) _diffs.push(candleTimes[i] - candleTimes[i-1]);
+    _diffs.sort((a, b) => a - b);
+    const barMs = _diffs.length ? _diffs[Math.floor(_diffs.length / 2)] : 3600 * 1000;
 
     function getXR() {
       const r = gd.layout.xaxis.range;
@@ -171,7 +183,7 @@ function switchTF(tf) {
     function setXR(t0, t1) {
       // 클램프: 최신(우측)은 dataXmax 넘지 않고, 과거는 dataXmin까지
       let span = t1 - t0;
-      const minSpan = 3600*1000;                 // 최소 1시간
+      const minSpan = barMs * 5;                 // ✅ 최대 확대 = 5봉 (일봉이면 5영업일)
       const maxSpan = dataXmax - dataXmin;
       if (span < minSpan) { span = minSpan; t0 = t1 - span; }
       if (span > maxSpan) { span = maxSpan; }
@@ -201,43 +213,88 @@ function switchTF(tf) {
         return Math.hypot(dx, dy);
       }
 
+      // 탭 시 수동 툴팁: 가장 가까운 봉 찾기
+      const candleIdx = gd.data.findIndex(t => t.type === 'candlestick');
+      const ratioIdx  = gd.data.findIndex(t => t.type === 'scatter');
+
+      function nearestIdx(t) {
+        let lo = 0, hi = candleTimes.length - 1;
+        while (lo < hi) {
+          const mid = (lo + hi) >> 1;
+          if (candleTimes[mid] < t) lo = mid + 1; else hi = mid;
+        }
+        if (lo > 0 && Math.abs(candleTimes[lo-1] - t) < Math.abs(candleTimes[lo] - t)) lo--;
+        return lo;
+      }
+
+      function showTapInfo(clientX, clientY) {
+        try {
+          const rect = gd.getBoundingClientRect();
+          const fl = gd._fullLayout;
+          const xa = fl.xaxis;
+          const pxInPlot = clientX - rect.left - fl._size.l;
+          if (pxInPlot < 0 || pxInPlot > fl._size.w) return;
+          // 위쪽 차트 영역(코스피)에서만 툴팁
+          const yInPlot = clientY - rect.top - fl._size.t;
+          const topH = fl._size.h * (fl.yaxis.domain[1] - fl.yaxis.domain[0]);
+          if (yInPlot < 0 || yInPlot > topH + 20) return;
+
+          const t = xa.p2d(pxInPlot);              // 픽셀 → 시간 (rangebreaks 반영)
+          const idx = nearestIdx(new Date(t).getTime());
+          const pts = [{curveNumber: candleIdx, pointNumber: idx}];
+          if (ratioIdx >= 0) pts.push({curveNumber: ratioIdx, pointNumber: idx});
+          Plotly.Fx.hover(gd, pts, 'xy');
+        } catch (err) { /* 무시 */ }
+      }
+
       plotArea.addEventListener('touchstart', e => {
+        Plotly.Fx.unhover(gd);                     // 제스처 시작 시 툴팁 제거
         const [r0, r1] = getXR();
         if (e.touches.length === 2) {
           touchState = { mode:'pinch', d0: dist(e.touches), r0, r1 };
-          e.preventDefault();
         } else if (e.touches.length === 1) {
-          touchState = { mode:'pan', x0: e.touches[0].clientX, r0, r1 };
+          touchState = {
+            mode:'pan', x0: e.touches[0].clientX, r0, r1,
+            tapX: e.touches[0].clientX, tapY: e.touches[0].clientY,
+            tapT: Date.now(), moved: false
+          };
         }
+        e.preventDefault();                        // Plotly 기본 터치(툴팁 등) 완전 차단
       }, {passive:false});
 
       plotArea.addEventListener('touchmove', e => {
         if (!touchState) return;
-        e.preventDefault();  // 페이지 스크롤/Plotly 기본동작 차단
+        e.preventDefault();
 
         if (touchState.mode === 'pinch' && e.touches.length === 2) {
-          // 손가락 벌리면 확대(구간 좁아짐), 모으면 축소(과거까지 넓게)
+          // ✅ 벌리면 확대(구간 좁아짐), 모으면 축소(과거까지 넓게) — 실시간 반영
           const scale = touchState.d0 / dist(e.touches);
-          const span0 = touchState.r1 - touchState.r0;
-          const newSpan = span0 * scale;
-          // ✅ 우측(최신) 고정: 오른쪽 끝은 그대로, 왼쪽만 이동
-          const R1 = touchState.r1;
-          const R0 = R1 - newSpan;
-          setXR(R0, R1);
+          const newSpan = (touchState.r1 - touchState.r0) * scale;
+          const R1 = touchState.r1;                // ✅ 우측(최신) 고정
+          setXR(R1 - newSpan, R1);
         } else if (touchState.mode === 'pan' && e.touches.length === 1) {
           const px = e.touches[0].clientX - touchState.x0;
+          if (Math.abs(px) > 8) touchState.moved = true;
           const w = gd.clientWidth || 360;
           const span = touchState.r1 - touchState.r0;
-          const dt = -px / w * span;   // 오른쪽으로 밀면 과거로
+          const dt = -px / w * span;               // 좌우 드래그 → 그 시간대로 이동
           setXR(touchState.r0 + dt, touchState.r1 + dt);
         }
       }, {passive:false});
 
       plotArea.addEventListener('touchend', e => {
+        if (touchState && touchState.mode === 'pan'
+            && !touchState.moved
+            && Date.now() - touchState.tapT < 350) {
+          // ✅ 움직임 없는 짧은 탭 → 그때만 정보 표시
+          showTapInfo(touchState.tapX, touchState.tapY);
+        }
         if (e.touches.length === 0) touchState = null;
         else if (e.touches.length === 1) {
           const [r0, r1] = getXR();
-          touchState = { mode:'pan', x0: e.touches[0].clientX, r0, r1 };
+          touchState = { mode:'pan', x0: e.touches[0].clientX, r0, r1,
+                         tapX: e.touches[0].clientX, tapY: e.touches[0].clientY,
+                         tapT: Date.now(), moved: true };
         }
       });
     } else {
