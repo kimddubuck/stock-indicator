@@ -12,11 +12,11 @@
     -webkit-text-size-adjust:100%; overflow-x:hidden; }
   /* 따뜻한 크림 + 오렌지 테마 */
   #live-banner { position:sticky; top:0; z-index:999; background:#faf6ec;
-    padding:11px 12px; text-align:center; font-size:14px; line-height:1.6;
+    padding:7px 10px; text-align:center; font-size:13.5px; line-height:1.5;
     border-bottom:2px dashed rgba(61,53,41,0.18); color:#3d3529; }
-  .title { text-align:center; font-size:18px; font-weight:800; padding:16px 8px 4px;
+  .title { text-align:center; font-size:18px; font-weight:800; padding:8px 8px 2px;
     color:#3d3529; letter-spacing:-0.3px; }
-  .bar { text-align:center; padding:12px 8px; display:flex; justify-content:center;
+  .bar { text-align:center; padding:7px 8px; display:flex; justify-content:center;
     gap:10px; align-items:center; flex-wrap:wrap; }
   .tf-btn { background:#ffffff; color:#3d3529; border:1.5px solid rgba(61,53,41,0.15);
     padding:11px 20px; border-radius:14px; font-size:15px; font-weight:600; cursor:pointer;
@@ -91,14 +91,9 @@
 </head>
 <body>
 
-<a href="index.html" style="position:fixed;top:10px;left:10px;z-index:1000;background:#fbf8f0;border:1.5px solid rgba(61,53,41,0.18);border-radius:12px;padding:7px 12px;text-decoration:none;font-size:14px;box-shadow:0 2px 6px rgba(61,53,41,0.12);color:#3d3529;font-weight:700;">🏠</a>
+<a href="index.html" style="position:fixed;top:10px;right:10px;z-index:1000;background:#fbf8f0;border:1.5px solid rgba(61,53,41,0.18);border-radius:12px;padding:7px 12px;text-decoration:none;font-size:14px;box-shadow:0 2px 6px rgba(61,53,41,0.12);color:#3d3529;font-weight:700;">🏠</a>
 <div id="live-banner">📡 실시간 지표 불러오는 중...</div>
-<div class="title">📊 대한민국 증시 52주 신고가/신저가 지표</div>
-<div class="bar">
-  <button class="tf-btn" data-tf="일봉" onclick="switchTF('일봉')">일봉</button><button class="tf-btn" data-tf="4시간봉" onclick="switchTF('4시간봉')">4시간봉</button><button class="tf-btn" data-tf="1시간봉" onclick="switchTF('1시간봉')">1시간봉</button>
-  <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
-</div>
-<details style="max-width:760px;margin:6px auto 10px;background:#fbf8f0;border:1px solid rgba(61,53,41,0.14);border-radius:12px;padding:10px 14px;font-size:13px;color:#5a5142;">
+<details style="max-width:760px;margin:6px auto 4px;background:#fbf8f0;border:1px solid rgba(61,53,41,0.14);border-radius:12px;padding:10px 14px;font-size:13px;color:#5a5142;">
   <summary style="cursor:pointer;font-weight:700;color:#3d3529;">📊 이 지표가 뭔가요? (시장 온도계 · NH/NL 비율)</summary>
   <div style="margin-top:8px;line-height:1.7;">
     <b>지표 수치(%) = 52주 신고가 종목 수 ÷ (신고가 + 신저가 종목 수) × 100</b><br><br>
@@ -109,6 +104,11 @@
     역사적으로 이 신호 뒤 우량주를 매수하면 <b>1년 뒤 높은 확률로 큰 회복 수익</b>을 안겨주었습니다.
   </div>
 </details>
+<div class="title">📊 대한민국 증시 52주 신고가/신저가 지표</div>
+<div class="bar">
+  <button class="tf-btn" data-tf="일봉" onclick="switchTF('일봉')">일봉</button><button class="tf-btn" data-tf="4시간봉" onclick="switchTF('4시간봉')">4시간봉</button><button class="tf-btn" data-tf="1시간봉" onclick="switchTF('1시간봉')">1시간봉</button>
+  <button id="fs-btn" onclick="toggleFull()">⛶ 전체화면</button>
+</div>
 <!-- BUILD_VERSION: v3.9-anchor -->
 <div class="ctitle" id="title-top">코스피 vs 지표</div>
 <div class="legend legend-top">
@@ -641,7 +641,7 @@ async function updateLive() {
       '📡 <b>실시간 지표</b>: <span style="color:'+color+';font-size:20px;font-weight:bold;">'+pct+'%</span>' +
       ' &nbsp;·&nbsp; 신고가 <b style="color:#dc2626;">'+d.high_cnt+'</b>' +
       ' / 신저가 <b style="color:#2563eb;">'+d.low_cnt+'</b>' +
-      ' &nbsp;·&nbsp; <span style="opacity:0.7;">'+d.ts_kst+' 기준 (장중 3분마다 갱신)</span>';
+      ' &nbsp;·&nbsp; <span style="opacity:0.7;white-space:nowrap;">'+d.ts_kst+' 기준</span> <span style="opacity:0.7;white-space:nowrap;">(장중 3분마다 갱신)</span>';
   } catch (e) {
     document.getElementById("live-banner").innerHTML =
       "📡 실시간 지표: 데이터 대기 중 (장중에만 갱신됩니다)";
