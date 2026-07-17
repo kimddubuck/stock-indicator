@@ -103,7 +103,7 @@
 <details style="max-width:760px;margin:3px auto 2px;background:#fbf8f0;border:1px solid rgba(61,53,41,0.14);border-radius:10px;padding:5px 12px;font-size:12.5px;color:#5a5142;">
   <summary style="cursor:pointer;font-weight:700;color:#3d3529;font-size:12.5px;">📊 이 지표가 뭔가요? (시장 온도계 · NH/NL 비율)</summary>
   <div style="margin-top:8px;line-height:1.7;">
-    <b>지표 수치(%) = 52주 신고가 종목 수 ÷ (신고가 + 신저가 종목 수) × 100</b><br><br>
+    <b style="white-space:nowrap;font-size:11px;">지표 수치(%) = 52주 신고가 종목 수 ÷ (신고가 + 신저가 종목 수) × 100</b><br>
     최근 1년 최고가를 경신한 종목(신고가)과 최저가를 경신한 종목(신저가)의 비율로
     <b>시장의 실제 체력</b>을 측정합니다. 이 수치가 <b style="color:#c0392b;">4% 이하</b>로 떨어지면
     오르는 주식이 전멸하고 96% 이상이 바닥을 기는 <b>극단적인 소외(진바닥)</b> 상태를 뜻합니다.
@@ -118,7 +118,7 @@
 </div>
 <!-- BUILD_VERSION: v4.0-note -->
 <div class="ctitle"><span id="title-top">코스피 vs 지표</span> <span class="note-ico" onclick="var n=document.getElementById('chart-note');n.style.display=n.style.display==='block'?'none':'block';">&#9432;</span></div>
-<div class="chart-note" id="chart-note">※ 코스피 캔들은 실시간이 아닙니다 (장 마감 후 당일 봉 반영). 상단 지표만 장중 실시간입니다.</div>
+<div class="chart-note" id="chart-note">※ 코스피 캔들은 실시간이 아닙니다 (장 마감 후 당일 봉 반영).<br>신저가/신고가 지표만 장중 실시간입니다.</div>
 <div class="legend legend-top">
   <span class="li"><span class="ln"></span>비율(%)</span>
   <span class="li"><span class="candle"><i class="wick"></i><i class="body"></i></span>코스피</span>
