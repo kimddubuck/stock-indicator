@@ -645,10 +645,12 @@ async function updateLive() {
     if (d.ratio < 0.10) color = "#dc2626";
     else if (d.ratio < 0.15) color = "#ea580c";
     else if (d.ratio < 0.20) color = "#ca8a04";
+    window.__HIGH_LIST = d.high_list || [];
+    window.__LOW_LIST = d.low_list || [];
     document.getElementById("live-banner").innerHTML =
       '📡 <b>실시간 지표</b>: <span style="color:'+color+';font-size:20px;font-weight:bold;">'+pct+'%</span>' +
-      ' &nbsp;·&nbsp; 신고가 <b style="color:#dc2626;">'+d.high_cnt+'</b>' +
-      ' / 신저가 <b style="color:#2563eb;">'+d.low_cnt+'</b>' +
+      ' &nbsp;·&nbsp; 신고가 <b style="color:#dc2626;cursor:pointer;text-decoration:underline dotted;" onclick="showStockList('high')">'+d.high_cnt+'</b>' +
+      ' / 신저가 <b style="color:#2563eb;cursor:pointer;text-decoration:underline dotted;" onclick="showStockList('low')">'+d.low_cnt+'</b>' +
       ' &nbsp;·&nbsp; <span style="opacity:0.7;">'+d.ts_kst+' 기준 (장중 3분마다 갱신)</span>';
   } catch (e) {
     document.getElementById("live-banner").innerHTML =
@@ -657,6 +659,51 @@ async function updateLive() {
 }
 updateLive();
 setInterval(updateLive, 30000);   // 30초마다 폴링
+</script>
+
+<!-- 신고가/신저가 종목 팝업 -->
+<div id="stock-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,0.45);"
+     onclick="if(event.target===this)this.style.display='none'">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+       width:min(440px,92vw);max-height:80vh;background:#fbf8f0;border-radius:16px;
+       box-shadow:0 10px 40px rgba(0,0,0,0.3);display:flex;flex-direction:column;overflow:hidden;">
+    <div style="display:flex;align-items:center;justify-content:space-between;
+         padding:14px 16px;border-bottom:1px solid rgba(61,53,41,0.15);">
+      <b id="modal-title" style="font-size:15px;color:#3d3529;">종목 목록</b>
+      <span onclick="document.getElementById('stock-modal').style.display='none'"
+            style="cursor:pointer;font-size:20px;color:#8a7f6d;line-height:1;">&times;</span>
+    </div>
+    <div id="modal-body" style="overflow-y:auto;padding:8px 6px 12px;"></div>
+  </div>
+</div>
+<script>
+function showStockList(kind){
+  const list = (kind==='high' ? window.__HIGH_LIST : window.__LOW_LIST) || [];
+  const title = (kind==='high' ? '52주 신고가' : '52주 신저가') + ' (' + list.length + '개)';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-title').style.color = (kind==='high' ? '#dc2626' : '#2563eb');
+  const body = document.getElementById('modal-body');
+  if(list.length === 0){
+    body.innerHTML = '<div style="text-align:center;color:#8a7f6d;padding:24px 0;font-size:13px;">종목 목록이 아직 없어요.<br>(장중에 갱신되면 표시됩니다)</div>';
+  } else {
+    let h = '';
+    list.forEach(function(s, i){
+      var col = '#8a7f6d';
+      var chgNum = parseFloat((s.chg||'').toString().replace('+',''));
+      if(!isNaN(chgNum)) col = (chgNum >= 0 ? '#dc2626' : '#2563eb');
+      h += '<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;'
+         + (i%2 ? 'background:#f5f0e4;' : '') + 'border-radius:8px;font-size:13.5px;">'
+         + '<span style="min-width:28px;color:#a99f8d;font-weight:700;text-align:right;">' + (i+1) + '</span>'
+         + '<span style="flex:1;font-weight:600;color:#3d3529;">' + (s.name||'') + '</span>'
+         + '<span style="color:#a99f8d;font-size:11.5px;min-width:52px;">' + (s.code||'') + '</span>'
+         + '<span style="min-width:56px;text-align:right;font-weight:700;color:' + col + ';">' + (s.chg||'') + '</span>'
+         + '</div>';
+    });
+    body.innerHTML = h;
+  }
+  document.getElementById('stock-modal').style.display = 'block';
+  document.getElementById('modal-body').scrollTop = 0;
+}
 </script>
 </body>
 </html>
