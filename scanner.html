@@ -16,15 +16,20 @@
   .card:active { transform:scale(0.99); }
   .row1 { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .rank { color:#a08a68; min-width:18px; }
-  .nm { font-weight:700; flex:1; }
+  .nm { font-weight:700; flex:1; display:flex; flex-direction:column; gap:3px; }
+  .nm1 { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .nm2 { display:flex; align-items:center; flex-wrap:wrap; gap:4px; }
+  .nm2 .gap { margin-left:0; }
   .cd { color:#a08a68; font-weight:400; font-size:11px; margin-left:4px; }
   .cur { font-weight:700; }
   .gap { font-size:11px; border-radius:8px; padding:2px 6px; margin-left:4px; white-space:nowrap; }
   .caret { color:#a08a68; transition:transform .2s; }
   .card.open .caret { transform:rotate(180deg); }
   .detail { max-height:0; overflow:hidden; transition:max-height .25s; }
-  .card.open .detail { max-height:260px; border-top:1px solid rgba(61,53,41,0.1);
+  .card.open .detail { max-height:640px; border-top:1px solid rgba(61,53,41,0.1);
                         margin-top:8px; padding-top:8px; }
+  table.daily { margin-top:10px; }
+  table.daily tbody th { font-weight:500; color:#a08a68; }
   table { width:100%; border-collapse:collapse; font-size:12px; }
   th, td { padding:4px 6px; text-align:right; }
   th:first-child { text-align:left; color:#7a6f5d; font-weight:600; }
@@ -44,7 +49,32 @@
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">1</span>
-        <span class="nm">S-Oil <span class="gap" style="color:#a93226;background:#fdecea">기15일🔥🔥</span><span class="cd">010950</span></span>
+        <span class="nm">
+          <span class="nm1">현대백화점<span class="cd">069960</span></span>
+          <span class="nm2"><span class="gap" style="color:#a93226;background:#fdecea">외15일🔥🔥</span></span>
+        </span>
+        <span class="cur">136,400<small>원</small></span>
+        <span class="caret">▾</span>
+      </div>
+      <div class="detail">
+        <table>
+          <thead><tr><th>순매수(주)</th><th>5일</th><th>20일</th><th>연속</th></tr></thead>
+          <tbody>
+            <tr><th>외인</th><td style="color:#c0392b">+116,714</td><td style="color:#c0392b">+509,867</td><td>+15일</td></tr>
+            <tr><th>기관</th><td style="color:#2471c4">-155,869</td><td style="color:#2471c4">-609,042</td><td>-16일</td></tr>
+          </tbody>
+        </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+12,772</td><td style="color:#2471c4">-14,735</td></tr><tr><th>07/16</th><td style="color:#c0392b">+9,342</td><td style="color:#2471c4">-10,745</td></tr><tr><th>07/15</th><td style="color:#c0392b">+29,305</td><td style="color:#2471c4">-79,752</td></tr><tr><th>07/14</th><td style="color:#c0392b">+2,230</td><td style="color:#2471c4">-78</td></tr><tr><th>07/13</th><td style="color:#c0392b">+59,067</td><td style="color:#2471c4">-50,559</td></tr><tr><th>07/10</th><td style="color:#c0392b">+8,288</td><td style="color:#2471c4">-8,554</td></tr><tr><th>07/09</th><td style="color:#c0392b">+54,390</td><td style="color:#2471c4">-52,052</td></tr><tr><th>07/08</th><td style="color:#c0392b">+35,977</td><td style="color:#2471c4">-16,598</td></tr><tr><th>07/07</th><td style="color:#c0392b">+14,672</td><td style="color:#2471c4">-5,505</td></tr><tr><th>07/06</th><td style="color:#c0392b">+51,613</td><td style="color:#2471c4">-60,033</td></tr></tbody></table>
+        <div class="score">발굴 경로: 🎯레이더</div>
+      </div>
+    </div>
+    <div class="card" onclick="this.classList.toggle('open')">
+      <div class="row1">
+        <span class="rank">2</span>
+        <span class="nm">
+          <span class="nm1">S-Oil<span class="cd">010950</span></span>
+          <span class="nm2"><span class="gap" style="color:#a93226;background:#fdecea">기15일🔥🔥</span></span>
+        </span>
         <span class="cur">146,700<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -56,13 +86,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+898,146</td><td style="color:#c0392b">+1,881,333</td><td>+15일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-200,549</td><td style="color:#c0392b">+296,448</td></tr><tr><th>07/16</th><td style="color:#2471c4">-79,833</td><td style="color:#c0392b">+111,433</td></tr><tr><th>07/15</th><td style="color:#c0392b">+95,456</td><td style="color:#c0392b">+48,898</td></tr><tr><th>07/14</th><td style="color:#2471c4">-6,210</td><td style="color:#c0392b">+46,324</td></tr><tr><th>07/13</th><td style="color:#2471c4">-96,173</td><td style="color:#c0392b">+395,043</td></tr><tr><th>07/10</th><td style="color:#c0392b">+79,926</td><td style="color:#c0392b">+13,041</td></tr><tr><th>07/09</th><td style="color:#c0392b">+90,797</td><td style="color:#c0392b">+45,135</td></tr><tr><th>07/08</th><td style="color:#2471c4">-21,767</td><td style="color:#c0392b">+270,436</td></tr><tr><th>07/07</th><td style="color:#2471c4">-212,712</td><td style="color:#c0392b">+591,070</td></tr><tr><th>07/06</th><td style="color:#c0392b">+83,392</td><td style="color:#c0392b">+62,067</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">2</span>
-        <span class="nm">DB손해보험 <span class="gap" style="color:#a93226;background:#fdecea">기12일🔥🔥</span><span class="cd">005830</span></span>
+        <span class="rank">3</span>
+        <span class="nm">
+          <span class="nm1">DB손해보험<span class="cd">005830</span></span>
+          <span class="nm2"><span class="gap" style="color:#a93226;background:#fdecea">기12일🔥🔥</span></span>
+        </span>
         <span class="cur">159,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -74,13 +108,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+397,781</td><td style="color:#c0392b">+772,613</td><td>+12일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-71,047</td><td style="color:#c0392b">+75,618</td></tr><tr><th>07/16</th><td style="color:#2471c4">-78,920</td><td style="color:#c0392b">+80,317</td></tr><tr><th>07/15</th><td style="color:#2471c4">-45,820</td><td style="color:#c0392b">+61,014</td></tr><tr><th>07/14</th><td style="color:#2471c4">-89,649</td><td style="color:#c0392b">+108,123</td></tr><tr><th>07/13</th><td style="color:#2471c4">-55,535</td><td style="color:#c0392b">+72,709</td></tr><tr><th>07/10</th><td style="color:#2471c4">-78,156</td><td style="color:#c0392b">+117,759</td></tr><tr><th>07/09</th><td style="color:#2471c4">-53,698</td><td style="color:#c0392b">+41,877</td></tr><tr><th>07/08</th><td style="color:#2471c4">-66,954</td><td style="color:#c0392b">+71,462</td></tr><tr><th>07/07</th><td style="color:#2471c4">-47,039</td><td style="color:#c0392b">+56,080</td></tr><tr><th>07/06</th><td style="color:#2471c4">-21,597</td><td style="color:#c0392b">+12,566</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">3</span>
-        <span class="nm">SK이노베이션 <span class="gap" style="color:#c0392b;background:#fdecea">기9일🔥</span><span class="cd">096770</span></span>
+        <span class="rank">4</span>
+        <span class="nm">
+          <span class="nm1">SK이노베이션<span class="cd">096770</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기9일🔥</span></span>
+        </span>
         <span class="cur">116,900<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -92,13 +130,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+1,789,214</td><td style="color:#c0392b">+1,913,515</td><td>+9일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-108,962</td><td style="color:#c0392b">+215,918</td></tr><tr><th>07/16</th><td style="color:#2471c4">-209,567</td><td style="color:#c0392b">+636,122</td></tr><tr><th>07/15</th><td style="color:#c0392b">+102,428</td><td style="color:#c0392b">+317,985</td></tr><tr><th>07/14</th><td style="color:#2471c4">-170,869</td><td style="color:#c0392b">+205,230</td></tr><tr><th>07/13</th><td style="color:#c0392b">+124,798</td><td style="color:#c0392b">+413,959</td></tr><tr><th>07/10</th><td style="color:#c0392b">+5,228</td><td style="color:#c0392b">+97,944</td></tr><tr><th>07/09</th><td style="color:#2471c4">-44,098</td><td style="color:#c0392b">+80,520</td></tr><tr><th>07/08</th><td style="color:#2471c4">-27,515</td><td style="color:#c0392b">+83,198</td></tr><tr><th>07/07</th><td style="color:#2471c4">-101,070</td><td style="color:#c0392b">+355,812</td></tr><tr><th>07/06</th><td style="color:#c0392b">+29,570</td><td style="color:#2471c4">-36,912</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">4</span>
-        <span class="nm">현대모비스 <span class="gap" style="color:#c0392b;background:#fdecea">외8일🔥</span><span class="cd">012330</span></span>
+        <span class="rank">5</span>
+        <span class="nm">
+          <span class="nm1">현대모비스<span class="cd">012330</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">외8일🔥</span></span>
+        </span>
         <span class="cur">472,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -110,13 +152,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-33,639</td><td style="color:#2471c4">-276,434</td><td>-3일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+53,306</td><td style="color:#2471c4">-16,436</td></tr><tr><th>07/16</th><td style="color:#c0392b">+16,861</td><td style="color:#2471c4">-10,418</td></tr><tr><th>07/15</th><td style="color:#c0392b">+59,019</td><td style="color:#2471c4">-42,151</td></tr><tr><th>07/14</th><td style="color:#c0392b">+9,399</td><td style="color:#c0392b">+6,609</td></tr><tr><th>07/13</th><td style="color:#c0392b">+25,358</td><td style="color:#c0392b">+28,757</td></tr><tr><th>07/10</th><td style="color:#c0392b">+62,240</td><td style="color:#c0392b">+14,018</td></tr><tr><th>07/09</th><td style="color:#c0392b">+15,845</td><td style="color:#2471c4">-24,429</td></tr><tr><th>07/08</th><td style="color:#c0392b">+76,741</td><td style="color:#2471c4">-934</td></tr><tr><th>07/07</th><td style="color:#2471c4">-8,279</td><td style="color:#c0392b">+28,548</td></tr><tr><th>07/06</th><td style="color:#2471c4">-41,296</td><td style="color:#c0392b">+33,806</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">5</span>
-        <span class="nm">SK이터닉스 <span class="gap" style="color:#c0392b;background:#fdecea">기7일🔥</span><span class="cd">475150</span></span>
+        <span class="rank">6</span>
+        <span class="nm">
+          <span class="nm1">SK이터닉스<span class="cd">475150</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기7일🔥</span></span>
+        </span>
         <span class="cur">55,900<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -128,13 +174,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+1,043,518</td><td style="color:#c0392b">+1,309,548</td><td>+7일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+22,047</td><td style="color:#c0392b">+438,625</td></tr><tr><th>07/16</th><td style="color:#2471c4">-313,781</td><td style="color:#c0392b">+179,541</td></tr><tr><th>07/15</th><td style="color:#c0392b">+587,243</td><td style="color:#c0392b">+174,502</td></tr><tr><th>07/14</th><td style="color:#2471c4">-130,726</td><td style="color:#c0392b">+26,340</td></tr><tr><th>07/13</th><td style="color:#c0392b">+107,940</td><td style="color:#c0392b">+224,510</td></tr><tr><th>07/10</th><td style="color:#2471c4">-148,640</td><td style="color:#c0392b">+19,725</td></tr><tr><th>07/09</th><td style="color:#c0392b">+77,916</td><td style="color:#c0392b">+49,160</td></tr><tr><th>07/08</th><td style="color:#c0392b">+140,936</td><td style="color:#2471c4">-6,884</td></tr><tr><th>07/07</th><td style="color:#2471c4">-222,972</td><td style="color:#c0392b">+17,966</td></tr><tr><th>07/06</th><td style="color:#2471c4">-155,796</td><td style="color:#2471c4">-221,549</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">6</span>
-        <span class="nm">피에스케이 <span class="gap" style="color:#c0392b;background:#fdecea">기7일🔥</span><span class="cd">319660</span></span>
+        <span class="rank">7</span>
+        <span class="nm">
+          <span class="nm1">피에스케이<span class="cd">319660</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기7일🔥</span></span>
+        </span>
         <span class="cur">170,800<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -146,13 +196,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+734,829</td><td style="color:#c0392b">+1,597,340</td><td>+7일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-120,532</td><td style="color:#c0392b">+96,447</td></tr><tr><th>07/16</th><td style="color:#2471c4">-44,480</td><td style="color:#c0392b">+14,039</td></tr><tr><th>07/15</th><td style="color:#2471c4">-235,932</td><td style="color:#c0392b">+71,872</td></tr><tr><th>07/14</th><td style="color:#2471c4">-125,338</td><td style="color:#c0392b">+133,833</td></tr><tr><th>07/13</th><td style="color:#2471c4">-325,122</td><td style="color:#c0392b">+418,638</td></tr><tr><th>07/10</th><td style="color:#2471c4">-344,897</td><td style="color:#c0392b">+462,069</td></tr><tr><th>07/09</th><td style="color:#2471c4">-40,969</td><td style="color:#c0392b">+71,952</td></tr><tr><th>07/08</th><td style="color:#c0392b">+82,328</td><td style="color:#2471c4">-33,225</td></tr><tr><th>07/07</th><td style="color:#c0392b">+84,778</td><td style="color:#2471c4">-78,785</td></tr><tr><th>07/06</th><td style="color:#c0392b">+99,347</td><td style="color:#2471c4">-137,861</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">7</span>
-        <span class="nm">NAVER <span class="gap" style="color:#c0392b;background:#fdecea">외6일🔥</span><span class="cd">035420</span></span>
+        <span class="rank">8</span>
+        <span class="nm">
+          <span class="nm1">NAVER<span class="cd">035420</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">외6일🔥</span></span>
+        </span>
         <span class="cur">185,900<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -164,13 +218,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-91,513</td><td style="color:#2471c4">-508,205</td><td>+1일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+39,590</td><td style="color:#c0392b">+36,886</td></tr><tr><th>07/16</th><td style="color:#c0392b">+163,645</td><td style="color:#2471c4">-79,893</td></tr><tr><th>07/15</th><td style="color:#c0392b">+163,232</td><td style="color:#2471c4">-67,672</td></tr><tr><th>07/14</th><td style="color:#c0392b">+53,346</td><td style="color:#2471c4">-4,859</td></tr><tr><th>07/13</th><td style="color:#c0392b">+44,888</td><td style="color:#c0392b">+24,025</td></tr><tr><th>07/10</th><td style="color:#c0392b">+193,927</td><td style="color:#c0392b">+16,049</td></tr><tr><th>07/09</th><td style="color:#2471c4">-20,823</td><td style="color:#2471c4">-73,902</td></tr><tr><th>07/08</th><td style="color:#c0392b">+21,971</td><td style="color:#2471c4">-44,857</td></tr><tr><th>07/07</th><td style="color:#c0392b">+244,556</td><td style="color:#c0392b">+67,808</td></tr><tr><th>07/06</th><td style="color:#2471c4">-34,299</td><td style="color:#2471c4">-10,147</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">8</span>
-        <span class="nm">NC <span class="gap" style="color:#c0392b;background:#fdecea">외6일🔥</span><span class="cd">036570</span></span>
+        <span class="rank">9</span>
+        <span class="nm">
+          <span class="nm1">NC<span class="cd">036570</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">외6일🔥</span></span>
+        </span>
         <span class="cur">210,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -182,13 +240,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-83,463</td><td style="color:#c0392b">+47,810</td><td>-6일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+48,757</td><td style="color:#2471c4">-17,563</td></tr><tr><th>07/16</th><td style="color:#c0392b">+14,583</td><td style="color:#2471c4">-15,552</td></tr><tr><th>07/15</th><td style="color:#c0392b">+33,502</td><td style="color:#2471c4">-46,578</td></tr><tr><th>07/14</th><td style="color:#c0392b">+7,914</td><td style="color:#2471c4">-815</td></tr><tr><th>07/13</th><td style="color:#c0392b">+9,563</td><td style="color:#2471c4">-2,955</td></tr><tr><th>07/10</th><td style="color:#c0392b">+28,532</td><td style="color:#2471c4">-31,485</td></tr><tr><th>07/09</th><td style="color:#2471c4">-11,505</td><td style="color:#c0392b">+16,111</td></tr><tr><th>07/08</th><td style="color:#2471c4">-259</td><td style="color:#c0392b">+21,460</td></tr><tr><th>07/07</th><td style="color:#2471c4">-3,410</td><td style="color:#c0392b">+22,438</td></tr><tr><th>07/06</th><td style="color:#c0392b">+1,113</td><td style="color:#2471c4">-5,162</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">9</span>
-        <span class="nm">샘씨엔에스 <span class="gap" style="color:#c0392b;background:#fdecea">기6일🔥</span><span class="cd">252990</span></span>
+        <span class="rank">10</span>
+        <span class="nm">
+          <span class="nm1">샘씨엔에스<span class="cd">252990</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기6일🔥</span></span>
+        </span>
         <span class="cur">15,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -200,13 +262,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+2,232,762</td><td style="color:#c0392b">+2,285,273</td><td>+6일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-794,401</td><td style="color:#c0392b">+1,132,448</td></tr><tr><th>07/16</th><td style="color:#2471c4">-126,119</td><td style="color:#c0392b">+82,302</td></tr><tr><th>07/15</th><td style="color:#2471c4">-38,876</td><td style="color:#c0392b">+488,444</td></tr><tr><th>07/14</th><td style="color:#2471c4">-215,281</td><td style="color:#c0392b">+225,001</td></tr><tr><th>07/13</th><td style="color:#2471c4">-131,649</td><td style="color:#c0392b">+304,567</td></tr><tr><th>07/10</th><td style="color:#c0392b">+9,296</td><td style="color:#c0392b">+52,693</td></tr><tr><th>07/09</th><td style="color:#2471c4">-1,267</td><td style="color:#2471c4">-37,542</td></tr><tr><th>07/08</th><td style="color:#c0392b">+55,654</td><td style="color:#c0392b">+69,261</td></tr><tr><th>07/07</th><td style="color:#c0392b">+117,367</td><td style="color:#2471c4">-84,637</td></tr><tr><th>07/06</th><td style="color:#2471c4">-29,440</td><td style="color:#c0392b">+49,357</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">10</span>
-        <span class="nm">HMM <span class="gap" style="color:#c0392b;background:#fdecea">외5일🔥</span><span class="cd">011200</span></span>
+        <span class="rank">11</span>
+        <span class="nm">
+          <span class="nm1">HMM<span class="cd">011200</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">외5일🔥</span></span>
+        </span>
         <span class="cur">20,150<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -218,13 +284,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+1,490,047</td><td style="color:#c0392b">+2,692,020</td><td>+2일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+66,461</td><td style="color:#c0392b">+441,674</td></tr><tr><th>07/16</th><td style="color:#c0392b">+416,729</td><td style="color:#c0392b">+37,642</td></tr><tr><th>07/15</th><td style="color:#c0392b">+126,033</td><td style="color:#2471c4">-52,791</td></tr><tr><th>07/14</th><td style="color:#c0392b">+11,776</td><td style="color:#c0392b">+627,192</td></tr><tr><th>07/13</th><td style="color:#c0392b">+216,289</td><td style="color:#c0392b">+436,330</td></tr><tr><th>07/10</th><td style="color:#2471c4">-1,154</td><td style="color:#c0392b">+236,786</td></tr><tr><th>07/09</th><td style="color:#c0392b">+121,214</td><td style="color:#2471c4">-77,022</td></tr><tr><th>07/08</th><td style="color:#2471c4">-25,523</td><td style="color:#c0392b">+628,309</td></tr><tr><th>07/07</th><td style="color:#c0392b">+123,483</td><td style="color:#c0392b">+123,593</td></tr><tr><th>07/06</th><td style="color:#c0392b">+66,353</td><td style="color:#c0392b">+62,040</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">11</span>
-        <span class="nm">DB하이텍 <span class="gap" style="color:#c0392b;background:#fdecea">외5일🔥</span><span class="cd">000990</span></span>
+        <span class="rank">12</span>
+        <span class="nm">
+          <span class="nm1">DB하이텍<span class="cd">000990</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">외5일🔥</span></span>
+        </span>
         <span class="cur">102,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -236,13 +306,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-371,002</td><td style="color:#2471c4">-1,739,378</td><td>-2일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+106,850</td><td style="color:#2471c4">-107,574</td></tr><tr><th>07/16</th><td style="color:#c0392b">+96,825</td><td style="color:#2471c4">-117,255</td></tr><tr><th>07/15</th><td style="color:#c0392b">+4,508</td><td style="color:#c0392b">+26,625</td></tr><tr><th>07/14</th><td style="color:#c0392b">+100,212</td><td style="color:#2471c4">-54,662</td></tr><tr><th>07/13</th><td style="color:#c0392b">+149,053</td><td style="color:#2471c4">-118,136</td></tr><tr><th>07/10</th><td style="color:#2471c4">-17,170</td><td style="color:#c0392b">+47,826</td></tr><tr><th>07/09</th><td style="color:#2471c4">-56,327</td><td style="color:#c0392b">+136,394</td></tr><tr><th>07/08</th><td style="color:#c0392b">+23,061</td><td style="color:#c0392b">+102,204</td></tr><tr><th>07/07</th><td style="color:#c0392b">+41,957</td><td style="color:#c0392b">+56,407</td></tr><tr><th>07/06</th><td style="color:#c0392b">+105,656</td><td style="color:#2471c4">-108,365</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">12</span>
-        <span class="nm">한화에어로스페이스 <span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span><span class="cd">012450</span></span>
+        <span class="rank">13</span>
+        <span class="nm">
+          <span class="nm1">한화에어로스페이스<span class="cd">012450</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span></span>
+        </span>
         <span class="cur">875,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -254,13 +328,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+58,947</td><td style="color:#c0392b">+166,191</td><td>+5일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-26,645</td><td style="color:#c0392b">+19,166</td></tr><tr><th>07/16</th><td style="color:#2471c4">-14,770</td><td style="color:#c0392b">+24,629</td></tr><tr><th>07/15</th><td style="color:#c0392b">+10,407</td><td style="color:#c0392b">+189</td></tr><tr><th>07/14</th><td style="color:#2471c4">-16,468</td><td style="color:#c0392b">+12,487</td></tr><tr><th>07/13</th><td style="color:#c0392b">+9,351</td><td style="color:#c0392b">+2,476</td></tr><tr><th>07/10</th><td style="color:#c0392b">+27,038</td><td style="color:#2471c4">-26,006</td></tr><tr><th>07/09</th><td style="color:#c0392b">+4,040</td><td style="color:#2471c4">-45,035</td></tr><tr><th>07/08</th><td style="color:#c0392b">+21,635</td><td style="color:#2471c4">-20,130</td></tr><tr><th>07/07</th><td style="color:#c0392b">+17,978</td><td style="color:#2471c4">-2,069</td></tr><tr><th>07/06</th><td style="color:#2471c4">-3,724</td><td style="color:#c0392b">+11,504</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">13</span>
-        <span class="nm">삼성화재 <span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span><span class="cd">000810</span></span>
+        <span class="rank">14</span>
+        <span class="nm">
+          <span class="nm1">삼성화재<span class="cd">000810</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span></span>
+        </span>
         <span class="cur">602,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -272,13 +350,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+96,453</td><td style="color:#c0392b">+126,996</td><td>+5일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-28,768</td><td style="color:#c0392b">+14,570</td></tr><tr><th>07/16</th><td style="color:#2471c4">-24,729</td><td style="color:#c0392b">+33,995</td></tr><tr><th>07/15</th><td style="color:#2471c4">-7,854</td><td style="color:#c0392b">+12,403</td></tr><tr><th>07/14</th><td style="color:#2471c4">-25,185</td><td style="color:#c0392b">+22,758</td></tr><tr><th>07/13</th><td style="color:#2471c4">-11,436</td><td style="color:#c0392b">+12,727</td></tr><tr><th>07/10</th><td style="color:#c0392b">+11,471</td><td style="color:#2471c4">-4,091</td></tr><tr><th>07/09</th><td style="color:#2471c4">-47,947</td><td style="color:#c0392b">+38,890</td></tr><tr><th>07/08</th><td style="color:#2471c4">-7,229</td><td style="color:#c0392b">+9,199</td></tr><tr><th>07/07</th><td style="color:#2471c4">-3,040</td><td style="color:#c0392b">+4,865</td></tr><tr><th>07/06</th><td style="color:#2471c4">-6,468</td><td style="color:#c0392b">+7,400</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
-        <span class="rank">14</span>
-        <span class="nm">한국항공우주 <span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span><span class="cd">047810</span></span>
+        <span class="rank">15</span>
+        <span class="nm">
+          <span class="nm1">한국항공우주<span class="cd">047810</span></span>
+          <span class="nm2"><span class="gap" style="color:#c0392b;background:#fdecea">기5일🔥</span></span>
+        </span>
         <span class="cur">143,900<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -290,13 +372,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+452,019</td><td style="color:#c0392b">+1,960,228</td><td>+5일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-156,982</td><td style="color:#c0392b">+135,996</td></tr><tr><th>07/16</th><td style="color:#2471c4">-49,012</td><td style="color:#c0392b">+95,162</td></tr><tr><th>07/15</th><td style="color:#2471c4">-6,279</td><td style="color:#c0392b">+24,981</td></tr><tr><th>07/14</th><td style="color:#2471c4">-94,299</td><td style="color:#c0392b">+98,077</td></tr><tr><th>07/13</th><td style="color:#2471c4">-55,482</td><td style="color:#c0392b">+97,803</td></tr><tr><th>07/10</th><td style="color:#2471c4">-35,879</td><td style="color:#2471c4">-83,918</td></tr><tr><th>07/09</th><td style="color:#2471c4">-137,211</td><td style="color:#c0392b">+175,879</td></tr><tr><th>07/08</th><td style="color:#2471c4">-11,502</td><td style="color:#2471c4">-31,994</td></tr><tr><th>07/07</th><td style="color:#2471c4">-69,975</td><td style="color:#c0392b">+115,828</td></tr><tr><th>07/06</th><td style="color:#2471c4">-68,454</td><td style="color:#c0392b">+88,788</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div><div class="sect">🌡️ 예열 중 — 3~4일 연속 (곧 불붙을 후보)</div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">1</span>
-        <span class="nm">KODEX 레버리지 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">122630</span></span>
+        <span class="nm">
+          <span class="nm1">KODEX 레버리지<span class="cd">122630</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">109,435<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -308,13 +394,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-5,320,976</td><td style="color:#2471c4">-10,435,658</td><td>-2일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+183,288</td><td style="color:#2471c4">-1,260,778</td></tr><tr><th>07/16</th><td style="color:#c0392b">+563,948</td><td style="color:#2471c4">-2,227,023</td></tr><tr><th>07/15</th><td style="color:#c0392b">+552,634</td><td style="color:#c0392b">+1,634,556</td></tr><tr><th>07/14</th><td style="color:#c0392b">+414,751</td><td style="color:#2471c4">-336,035</td></tr><tr><th>07/13</th><td style="color:#2471c4">-127,240</td><td style="color:#2471c4">-3,131,696</td></tr><tr><th>07/10</th><td style="color:#2471c4">-109,528</td><td style="color:#c0392b">+1,112,156</td></tr><tr><th>07/09</th><td style="color:#c0392b">+239,150</td><td style="color:#2471c4">-254,054</td></tr><tr><th>07/08</th><td style="color:#c0392b">+64,503</td><td style="color:#2471c4">-817,478</td></tr><tr><th>07/07</th><td style="color:#c0392b">+118,640</td><td style="color:#2471c4">-1,742,008</td></tr><tr><th>07/06</th><td style="color:#2471c4">-176,541</td><td style="color:#c0392b">+19,253</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">2</span>
-        <span class="nm">한국전력 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">015760</span></span>
+        <span class="nm">
+          <span class="nm1">한국전력<span class="cd">015760</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">33,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -326,13 +416,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-1,159,747</td><td style="color:#c0392b">+2,183,019</td><td>-5일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+270,528</td><td style="color:#2471c4">-28,143</td></tr><tr><th>07/16</th><td style="color:#c0392b">+471,833</td><td style="color:#2471c4">-166,748</td></tr><tr><th>07/15</th><td style="color:#c0392b">+62,523</td><td style="color:#2471c4">-446,328</td></tr><tr><th>07/14</th><td style="color:#c0392b">+215,597</td><td style="color:#2471c4">-229,981</td></tr><tr><th>07/13</th><td style="color:#2471c4">-212,249</td><td style="color:#2471c4">-288,547</td></tr><tr><th>07/10</th><td style="color:#c0392b">+31,182</td><td style="color:#c0392b">+218,422</td></tr><tr><th>07/09</th><td style="color:#c0392b">+3,620</td><td style="color:#2471c4">-194,379</td></tr><tr><th>07/08</th><td style="color:#2471c4">-141,769</td><td style="color:#c0392b">+137,328</td></tr><tr><th>07/07</th><td style="color:#2471c4">-340,560</td><td style="color:#c0392b">+373,524</td></tr><tr><th>07/06</th><td style="color:#2471c4">-115,758</td><td style="color:#c0392b">+208,838</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">3</span>
-        <span class="nm">코오롱티슈진 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">950160</span></span>
+        <span class="nm">
+          <span class="nm1">코오롱티슈진<span class="cd">950160</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">61,200<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -344,13 +438,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-217,724</td><td style="color:#2471c4">-304,937</td><td>-1일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+62,522</td><td style="color:#2471c4">-91,941</td></tr><tr><th>07/16</th><td style="color:#c0392b">+84,838</td><td style="color:#c0392b">+14,964</td></tr><tr><th>07/15</th><td style="color:#c0392b">+31,555</td><td style="color:#2471c4">-38,642</td></tr><tr><th>07/14</th><td style="color:#c0392b">+279,235</td><td style="color:#2471c4">-63,063</td></tr><tr><th>07/13</th><td style="color:#2471c4">-5,185</td><td style="color:#2471c4">-39,042</td></tr><tr><th>07/10</th><td style="color:#c0392b">+63,529</td><td style="color:#c0392b">+11,445</td></tr><tr><th>07/09</th><td style="color:#c0392b">+11,359</td><td style="color:#2471c4">-7,139</td></tr><tr><th>07/08</th><td style="color:#2471c4">-62,272</td><td style="color:#2471c4">-26,981</td></tr><tr><th>07/07</th><td style="color:#c0392b">+38,144</td><td style="color:#c0392b">+12,863</td></tr><tr><th>07/06</th><td style="color:#2471c4">-36,505</td><td style="color:#c0392b">+9,939</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">4</span>
-        <span class="nm">리가켐바이오 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">141080</span></span>
+        <span class="nm">
+          <span class="nm1">리가켐바이오<span class="cd">141080</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">97,100<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -362,13 +460,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-146,011</td><td style="color:#c0392b">+24,843</td><td>-2일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+60,403</td><td style="color:#2471c4">-54,203</td></tr><tr><th>07/16</th><td style="color:#c0392b">+99,396</td><td style="color:#2471c4">-71,068</td></tr><tr><th>07/15</th><td style="color:#c0392b">+87,811</td><td style="color:#c0392b">+4,688</td></tr><tr><th>07/14</th><td style="color:#c0392b">+116,034</td><td style="color:#2471c4">-20,379</td></tr><tr><th>07/13</th><td style="color:#2471c4">-6,581</td><td style="color:#2471c4">-5,049</td></tr><tr><th>07/10</th><td style="color:#2471c4">-47,068</td><td style="color:#c0392b">+19,577</td></tr><tr><th>07/09</th><td style="color:#c0392b">+76,558</td><td style="color:#2471c4">-174,922</td></tr><tr><th>07/08</th><td style="color:#c0392b">+24,393</td><td style="color:#2471c4">-50,043</td></tr><tr><th>07/07</th><td style="color:#c0392b">+49,037</td><td style="color:#c0392b">+54,255</td></tr><tr><th>07/06</th><td style="color:#c0392b">+19,580</td><td style="color:#2471c4">-46,999</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">5</span>
-        <span class="nm">현대퓨처넷 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">126560</span></span>
+        <span class="nm">
+          <span class="nm1">현대퓨처넷<span class="cd">126560</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">2,955<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -380,13 +482,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-4,364</td><td style="color:#c0392b">+2,282</td><td>-1일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+158</td><td style="color:#2471c4">-4,880</td></tr><tr><th>07/16</th><td style="color:#c0392b">+14,773</td><td style="color:#c0392b">+5,089</td></tr><tr><th>07/15</th><td style="color:#c0392b">+15,103</td><td style="color:#2471c4">-3,396</td></tr><tr><th>07/14</th><td style="color:#c0392b">+20,269</td><td style="color:#c0392b">+4,396</td></tr><tr><th>07/13</th><td style="color:#2471c4">-13,854</td><td style="color:#2471c4">-5,573</td></tr><tr><th>07/10</th><td style="color:#c0392b">+17,001</td><td style="color:#2471c4">-11,761</td></tr><tr><th>07/09</th><td style="color:#2471c4">-414</td><td style="color:#2471c4">-10,607</td></tr><tr><th>07/08</th><td style="color:#c0392b">+9,124</td><td style="color:#c0392b">+9,898</td></tr><tr><th>07/07</th><td style="color:#c0392b">+24,039</td><td style="color:#2471c4">-4,883</td></tr><tr><th>07/06</th><td style="color:#c0392b">+5,360</td><td style="color:#2471c4">-3,869</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">6</span>
-        <span class="nm">KX <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">122450</span></span>
+        <span class="nm">
+          <span class="nm1">KX<span class="cd">122450</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">2,535<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -398,13 +504,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-27,317</td><td style="color:#2471c4">-12,495</td><td>-4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+21,678</td><td style="color:#2471c4">-15,079</td></tr><tr><th>07/16</th><td style="color:#c0392b">+3,743</td><td style="color:#2471c4">-1,994</td></tr><tr><th>07/15</th><td style="color:#c0392b">+11,579</td><td style="color:#2471c4">-12,019</td></tr><tr><th>07/14</th><td style="color:#c0392b">+503</td><td style="color:#2471c4">-687</td></tr><tr><th>07/13</th><td style="color:#2471c4">-4,989</td><td style="color:#c0392b">+2,462</td></tr><tr><th>07/10</th><td style="color:#c0392b">+24,561</td><td style="color:#2471c4">-10,868</td></tr><tr><th>07/09</th><td style="color:#c0392b">+2,675</td><td style="color:#c0392b">+1,291</td></tr><tr><th>07/08</th><td style="color:#2471c4">-5,787</td><td style="color:#c0392b">+11,187</td></tr><tr><th>07/07</th><td style="color:#2471c4">-831</td><td style="color:#c0392b">+3,590</td></tr><tr><th>07/06</th><td style="color:#2471c4">-1,305</td><td style="color:#c0392b">+2,458</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">7</span>
-        <span class="nm">두산 <span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span><span class="cd">000150</span></span>
+        <span class="nm">
+          <span class="nm1">두산<span class="cd">000150</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외4일🌡️</span></span>
+        </span>
         <span class="cur">1,119,000<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -416,13 +526,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-41,204</td><td style="color:#2471c4">-116,185</td><td>-5일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+6,826</td><td style="color:#2471c4">-9,019</td></tr><tr><th>07/16</th><td style="color:#c0392b">+12,733</td><td style="color:#2471c4">-14,264</td></tr><tr><th>07/15</th><td style="color:#c0392b">+6,198</td><td style="color:#2471c4">-11,262</td></tr><tr><th>07/14</th><td style="color:#c0392b">+5,736</td><td style="color:#2471c4">-4,682</td></tr><tr><th>07/13</th><td style="color:#2471c4">-2,094</td><td style="color:#2471c4">-1,977</td></tr><tr><th>07/10</th><td style="color:#2471c4">-5,431</td><td style="color:#c0392b">+7,096</td></tr><tr><th>07/09</th><td style="color:#c0392b">+7,245</td><td style="color:#2471c4">-16,461</td></tr><tr><th>07/08</th><td style="color:#c0392b">+23,758</td><td style="color:#2471c4">-3,013</td></tr><tr><th>07/07</th><td style="color:#c0392b">+4,669</td><td style="color:#2471c4">-13,380</td></tr><tr><th>07/06</th><td style="color:#c0392b">+4,614</td><td style="color:#2471c4">-17,212</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">8</span>
-        <span class="nm">KT <span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span><span class="cd">030200</span></span>
+        <span class="nm">
+          <span class="nm1">KT<span class="cd">030200</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span></span>
+        </span>
         <span class="cur">53,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -434,13 +548,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+274,568</td><td style="color:#c0392b">+1,160,709</td><td>+4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-1,965</td><td style="color:#c0392b">+172,958</td></tr><tr><th>07/16</th><td style="color:#2471c4">-19</td><td style="color:#c0392b">+30,524</td></tr><tr><th>07/15</th><td style="color:#2471c4">-2,169</td><td style="color:#c0392b">+10,920</td></tr><tr><th>07/14</th><td style="color:#2471c4">-1,366</td><td style="color:#c0392b">+97,321</td></tr><tr><th>07/13</th><td style="color:#2471c4">-1,163</td><td style="color:#2471c4">-37,155</td></tr><tr><th>07/10</th><td style="color:#2471c4">-6</td><td style="color:#2471c4">-285,105</td></tr><tr><th>07/09</th><td style="color:#2471c4">-8,568</td><td style="color:#c0392b">+455,033</td></tr><tr><th>07/08</th><td style="color:#2471c4">-348</td><td style="color:#c0392b">+43,111</td></tr><tr><th>07/07</th><td style="color:#2471c4">-1,030</td><td style="color:#c0392b">+128,827</td></tr><tr><th>07/06</th><td style="color:#2471c4">-2,795</td><td style="color:#c0392b">+53,841</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">9</span>
-        <span class="nm">제주항공 <span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span><span class="cd">089590</span></span>
+        <span class="nm">
+          <span class="nm1">제주항공<span class="cd">089590</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span></span>
+        </span>
         <span class="cur">4,180<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -452,13 +570,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+32,015</td><td style="color:#c0392b">+15,701</td><td>+4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+6,221</td><td style="color:#c0392b">+29,612</td></tr><tr><th>07/16</th><td style="color:#2471c4">-4,496</td><td style="color:#c0392b">+255</td></tr><tr><th>07/15</th><td style="color:#2471c4">-29,692</td><td style="color:#c0392b">+2,816</td></tr><tr><th>07/14</th><td style="color:#2471c4">-35,857</td><td style="color:#c0392b">+1,978</td></tr><tr><th>07/13</th><td style="color:#2471c4">-51,049</td><td style="color:#2471c4">-2,646</td></tr><tr><th>07/10</th><td style="color:#c0392b">+38,895</td><td style="color:#2471c4">-947</td></tr><tr><th>07/09</th><td style="color:#2471c4">-20,128</td><td style="color:#2471c4">-7,639</td></tr><tr><th>07/08</th><td style="color:#2471c4">-21,459</td><td style="color:#2471c4">-1,852</td></tr><tr><th>07/07</th><td style="color:#c0392b">+26,870</td><td style="color:#2471c4">-2,265</td></tr><tr><th>07/06</th><td style="color:#2471c4">-1,063</td><td style="color:#c0392b">+852</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">10</span>
-        <span class="nm">SK텔레콤 <span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span><span class="cd">017670</span></span>
+        <span class="nm">
+          <span class="nm1">SK텔레콤<span class="cd">017670</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span></span>
+        </span>
         <span class="cur">84,700<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -470,13 +592,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+696,587</td><td style="color:#2471c4">-239,240</td><td>+4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-227,459</td><td style="color:#c0392b">+267,502</td></tr><tr><th>07/16</th><td style="color:#2471c4">-105,305</td><td style="color:#c0392b">+320,974</td></tr><tr><th>07/15</th><td style="color:#2471c4">-44,838</td><td style="color:#c0392b">+53,840</td></tr><tr><th>07/14</th><td style="color:#c0392b">+29,964</td><td style="color:#c0392b">+87,584</td></tr><tr><th>07/13</th><td style="color:#c0392b">+111,675</td><td style="color:#2471c4">-33,313</td></tr><tr><th>07/10</th><td style="color:#c0392b">+110,220</td><td style="color:#2471c4">-13,312</td></tr><tr><th>07/09</th><td style="color:#c0392b">+440,949</td><td style="color:#2471c4">-251,588</td></tr><tr><th>07/08</th><td style="color:#c0392b">+114,822</td><td style="color:#c0392b">+88,238</td></tr><tr><th>07/07</th><td style="color:#c0392b">+141,877</td><td style="color:#c0392b">+25,180</td></tr><tr><th>07/06</th><td style="color:#c0392b">+54,932</td><td style="color:#2471c4">-54,941</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">11</span>
-        <span class="nm">네오티스 <span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span><span class="cd">085910</span></span>
+        <span class="nm">
+          <span class="nm1">네오티스<span class="cd">085910</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기4일🌡️</span></span>
+        </span>
         <span class="cur">18,070<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -488,13 +614,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+507,595</td><td style="color:#2471c4">-111,586</td><td>+4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-422,393</td><td style="color:#c0392b">+557,926</td></tr><tr><th>07/16</th><td style="color:#2471c4">-6,112</td><td style="color:#c0392b">+3,570</td></tr><tr><th>07/15</th><td style="color:#2471c4">-63,313</td><td style="color:#c0392b">+12,763</td></tr><tr><th>07/14</th><td style="color:#2471c4">-126,602</td><td style="color:#c0392b">+21,411</td></tr><tr><th>07/13</th><td style="color:#c0392b">+26,221</td><td style="color:#2471c4">-88,075</td></tr><tr><th>07/10</th><td style="color:#2471c4">-129,782</td><td style="color:#c0392b">+11,730</td></tr><tr><th>07/09</th><td style="color:#2471c4">-9,299</td><td style="color:#2471c4">-50,642</td></tr><tr><th>07/08</th><td style="color:#2471c4">-37,261</td><td style="color:#2471c4">-5,314</td></tr><tr><th>07/07</th><td style="color:#c0392b">+164,555</td><td style="color:#2471c4">-109,172</td></tr><tr><th>07/06</th><td style="color:#c0392b">+108,824</td><td style="color:#2471c4">-102,230</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">12</span>
-        <span class="nm">케이뱅크 <span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span><span class="cd">279570</span></span>
+        <span class="nm">
+          <span class="nm1">케이뱅크<span class="cd">279570</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span></span>
+        </span>
         <span class="cur">6,200<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -506,13 +636,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-284,017</td><td style="color:#c0392b">+1,778,108</td><td>-3일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+460,222</td><td style="color:#2471c4">-17,652</td></tr><tr><th>07/16</th><td style="color:#c0392b">+2,684,929</td><td style="color:#2471c4">-619,607</td></tr><tr><th>07/15</th><td style="color:#c0392b">+363,709</td><td style="color:#2471c4">-101,851</td></tr><tr><th>07/14</th><td style="color:#2471c4">-156,963</td><td style="color:#c0392b">+9,823</td></tr><tr><th>07/13</th><td style="color:#c0392b">+231,764</td><td style="color:#c0392b">+445,270</td></tr><tr><th>07/10</th><td style="color:#c0392b">+161,353</td><td style="color:#c0392b">+330,610</td></tr><tr><th>07/09</th><td style="color:#c0392b">+52,484</td><td style="color:#2471c4">-26,519</td></tr><tr><th>07/08</th><td style="color:#2471c4">-107,378</td><td style="color:#2471c4">-37,411</td></tr><tr><th>07/07</th><td style="color:#2471c4">-186,290</td><td style="color:#2471c4">-8,454</td></tr><tr><th>07/06</th><td style="color:#2471c4">-208,534</td><td style="color:#c0392b">+76,161</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">13</span>
-        <span class="nm">삼성물산 <span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span><span class="cd">028260</span></span>
+        <span class="nm">
+          <span class="nm1">삼성물산<span class="cd">028260</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span></span>
+        </span>
         <span class="cur">317,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -524,13 +658,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-42,614</td><td style="color:#c0392b">+81,976</td><td>+1일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+8,391</td><td style="color:#c0392b">+12,040</td></tr><tr><th>07/16</th><td style="color:#c0392b">+52,791</td><td style="color:#2471c4">-24,391</td></tr><tr><th>07/15</th><td style="color:#c0392b">+92,098</td><td style="color:#2471c4">-107,680</td></tr><tr><th>07/14</th><td style="color:#2471c4">-38,524</td><td style="color:#c0392b">+88,619</td></tr><tr><th>07/13</th><td style="color:#c0392b">+63,161</td><td style="color:#2471c4">-11,202</td></tr><tr><th>07/10</th><td style="color:#c0392b">+42,824</td><td style="color:#2471c4">-6,464</td></tr><tr><th>07/09</th><td style="color:#2471c4">-23,474</td><td style="color:#c0392b">+43,644</td></tr><tr><th>07/08</th><td style="color:#c0392b">+21,446</td><td style="color:#2471c4">-7,668</td></tr><tr><th>07/07</th><td style="color:#2471c4">-22,630</td><td style="color:#c0392b">+62,927</td></tr><tr><th>07/06</th><td style="color:#2471c4">-21,981</td><td style="color:#c0392b">+92,504</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">14</span>
-        <span class="nm">POSCO홀딩스 <span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span><span class="cd">005490</span></span>
+        <span class="nm">
+          <span class="nm1">POSCO홀딩스<span class="cd">005490</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span></span>
+        </span>
         <span class="cur">302,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -542,13 +680,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-72,537</td><td style="color:#2471c4">-356,249</td><td>-4일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+7,860</td><td style="color:#2471c4">-25,703</td></tr><tr><th>07/16</th><td style="color:#c0392b">+48,917</td><td style="color:#2471c4">-38,775</td></tr><tr><th>07/15</th><td style="color:#c0392b">+47,651</td><td style="color:#2471c4">-23,622</td></tr><tr><th>07/14</th><td style="color:#2471c4">-609</td><td style="color:#2471c4">-4,176</td></tr><tr><th>07/13</th><td style="color:#2471c4">-8,636</td><td style="color:#c0392b">+19,739</td></tr><tr><th>07/10</th><td style="color:#c0392b">+64,916</td><td style="color:#c0392b">+6,544</td></tr><tr><th>07/09</th><td style="color:#c0392b">+118,599</td><td style="color:#2471c4">-138,565</td></tr><tr><th>07/08</th><td style="color:#c0392b">+38,927</td><td style="color:#2471c4">-26,456</td></tr><tr><th>07/07</th><td style="color:#2471c4">-11,220</td><td style="color:#2471c4">-2,045</td></tr><tr><th>07/06</th><td style="color:#c0392b">+3,152</td><td style="color:#2471c4">-19,828</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">15</span>
-        <span class="nm">LS <span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span><span class="cd">006260</span></span>
+        <span class="nm">
+          <span class="nm1">LS<span class="cd">006260</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">외3일🌡️</span></span>
+        </span>
         <span class="cur">265,500<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -560,13 +702,17 @@
             <tr><th>기관</th><td style="color:#2471c4">-64,801</td><td style="color:#c0392b">+253,302</td><td>-3일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#c0392b">+8,344</td><td style="color:#2471c4">-11,059</td></tr><tr><th>07/16</th><td style="color:#c0392b">+48,278</td><td style="color:#2471c4">-44,493</td></tr><tr><th>07/15</th><td style="color:#c0392b">+22,845</td><td style="color:#2471c4">-25,662</td></tr><tr><th>07/14</th><td style="color:#2471c4">-21,932</td><td style="color:#c0392b">+5,505</td></tr><tr><th>07/13</th><td style="color:#2471c4">-5,621</td><td style="color:#c0392b">+10,908</td></tr><tr><th>07/10</th><td style="color:#2471c4">-11,343</td><td style="color:#c0392b">+9,123</td></tr><tr><th>07/09</th><td style="color:#c0392b">+3,109</td><td style="color:#c0392b">+9,508</td></tr><tr><th>07/08</th><td style="color:#c0392b">+28,437</td><td style="color:#2471c4">-6,613</td></tr><tr><th>07/07</th><td style="color:#2471c4">-11,265</td><td style="color:#c0392b">+31,913</td></tr><tr><th>07/06</th><td style="color:#2471c4">-19,634</td><td style="color:#c0392b">+27,162</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">16</span>
-        <span class="nm">진에어 <span class="gap" style="color:#b9770e;background:#fdf2e0">기3일🌡️</span><span class="cd">272450</span></span>
+        <span class="nm">
+          <span class="nm1">진에어<span class="cd">272450</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기3일🌡️</span></span>
+        </span>
         <span class="cur">4,920<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -578,13 +724,17 @@
             <tr><th>기관</th><td style="color:#c0392b">+492</td><td style="color:#2471c4">-20,058</td><td>+3일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-37,029</td><td style="color:#c0392b">+122</td></tr><tr><th>07/16</th><td style="color:#c0392b">+8,524</td><td style="color:#c0392b">+3</td></tr><tr><th>07/15</th><td style="color:#2471c4">-13,474</td><td style="color:#c0392b">+2,119</td></tr><tr><th>07/14</th><td style="color:#2471c4">-3,416</td><td style="color:#2471c4">-118</td></tr><tr><th>07/13</th><td style="color:#2471c4">-55,915</td><td style="color:#2471c4">-1,634</td></tr><tr><th>07/10</th><td style="color:#c0392b">+36,620</td><td style="color:#2471c4">-3,841</td></tr><tr><th>07/09</th><td style="color:#2471c4">-41,545</td><td style="color:#2471c4">-26,284</td></tr><tr><th>07/08</th><td style="color:#2471c4">-17,981</td><td style="color:#2471c4">-946</td></tr><tr><th>07/07</th><td style="color:#c0392b">+51,408</td><td style="color:#c0392b">+1,210</td></tr><tr><th>07/06</th><td style="color:#c0392b">+3,106</td><td style="color:#c0392b">+3,917</td></tr></tbody></table>
         <div class="score">발굴 경로: 외인상위</div>
       </div>
     </div>
     <div class="card" onclick="this.classList.toggle('open')">
       <div class="row1">
         <span class="rank">17</span>
-        <span class="nm">PLUS 삼성전자선물단일종목인버스2X <span class="gap" style="color:#b9770e;background:#fdf2e0">기3일🌡️</span><span class="cd">0193L0</span></span>
+        <span class="nm">
+          <span class="nm1">PLUS 삼성전자선물단일종목인버스2X<span class="cd">0193L0</span></span>
+          <span class="nm2"><span class="gap" style="color:#b9770e;background:#fdf2e0">기3일🌡️</span></span>
+        </span>
         <span class="cur">18,790<small>원</small></span>
         <span class="caret">▾</span>
       </div>
@@ -596,6 +746,7 @@
             <tr><th>기관</th><td style="color:#c0392b">+1,309,494</td><td style="color:#c0392b">+2,655,842</td><td>+3일</td></tr>
           </tbody>
         </table>
+        <table class="daily"><thead><tr><th>일별(주)</th><th>외인</th><th>기관</th></tr></thead><tbody><tr><th>07/20</th><td style="color:#2471c4">-399,761</td><td style="color:#c0392b">+622,713</td></tr><tr><th>07/16</th><td style="color:#2471c4">-266,434</td><td style="color:#c0392b">+900,496</td></tr><tr><th>07/15</th><td style="color:#c0392b">+186,482</td><td style="color:#c0392b">+177,639</td></tr><tr><th>07/14</th><td style="color:#2471c4">-19,129</td><td style="color:#2471c4">-447,432</td></tr><tr><th>07/13</th><td style="color:#2471c4">-46,641</td><td style="color:#c0392b">+56,078</td></tr><tr><th>07/10</th><td style="color:#c0392b">+124,592</td><td style="color:#2471c4">-329,758</td></tr><tr><th>07/09</th><td style="color:#2471c4">-61,556</td><td style="color:#c0392b">+73,034</td></tr><tr><th>07/08</th><td style="color:#2471c4">-30,628</td><td style="color:#c0392b">+90,153</td></tr><tr><th>07/07</th><td style="color:#c0392b">+159,065</td><td style="color:#c0392b">+353,538</td></tr><tr><th>07/06</th><td style="color:#2471c4">-178,631</td><td style="color:#2471c4">-16,917</td></tr></tbody></table>
         <div class="score">발굴 경로: 기관상위</div>
       </div>
     </div>
