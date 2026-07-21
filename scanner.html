@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🔎 연속 순매수 스캐너</title>
+<style>
+  body { margin:0; background:#f5efdf; color:#3d3529;
+         font-family:-apple-system,'Malgun Gothic',sans-serif; }
+  .wrap { max-width:680px; margin:0 auto; padding:14px 12px 40px; }
+  .home { position:fixed; top:10px; left:10px; text-decoration:none; font-size:22px; }
+  h1 { text-align:center; font-size:20px; margin:8px 0 2px; }
+  .sub { text-align:center; color:#8a7c63; font-size:12px; margin-bottom:14px; }
+  .card { background:#fbf8f0; border:1px solid rgba(61,53,41,0.12);
+          border-radius:12px; margin-bottom:10px; padding:10px 12px; cursor:pointer; }
+  .card:active { transform:scale(0.99); }
+  .row1 { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .rank { color:#a08a68; min-width:18px; }
+  .nm { font-weight:700; flex:1; }
+  .cd { color:#a08a68; font-weight:400; font-size:11px; margin-left:4px; }
+  .cur { font-weight:700; }
+  .gap { font-size:11px; border-radius:8px; padding:2px 6px; margin-left:4px; white-space:nowrap; }
+  .caret { color:#a08a68; transition:transform .2s; }
+  .card.open .caret { transform:rotate(180deg); }
+  .detail { max-height:0; overflow:hidden; transition:max-height .25s; }
+  .card.open .detail { max-height:260px; border-top:1px solid rgba(61,53,41,0.1);
+                        margin-top:8px; padding-top:8px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th, td { padding:4px 6px; text-align:right; }
+  th:first-child { text-align:left; color:#7a6f5d; font-weight:600; }
+  thead th { color:#a08a68; font-weight:600; border-bottom:1px solid rgba(61,53,41,0.1); }
+  .score { color:#a08a68; font-size:11px; margin-top:6px; }
+  .empty { text-align:center; color:#8a7c63; padding:40px 0; line-height:1.7; }
+  .note { color:#a08a68; font-size:11px; text-align:center; margin-top:16px; line-height:1.6; }
+</style>
+</head>
+<body>
+<a class="home" href="index.html">🏠</a>
+<div class="wrap">
+  <h1>🔎 연속 순매수 스캐너</h1>
+  <div class="sub">시총 무관 · 외인/기관 5일↑ 연속 순매수 · 2026-07-21 기준 (검사 24개)</div>
+  <div class="empty">오늘은 5일 이상 연속 순매수 종목이 없어요.<br>큰손들이 쉬어가는 날도 있답니다 🙂</div>
+  <div class="note">※ 오늘 큰손 순매수 상위 명단에서 발굴한 뒤, 과거 100거래일 데이터로<br>
+     연속일수를 정밀 확인한 결과예요. 연속 매수가 길다고 무조건 매수 신호는 아닙니다.</div>
+</div>
+</body>
+</html>
