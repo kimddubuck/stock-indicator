@@ -10,7 +10,22 @@
   .wrap { max-width:680px; margin:0 auto; padding:14px 12px 40px; }
   .home { position:fixed; top:10px; left:10px; text-decoration:none; font-size:22px; }
   h1 { text-align:center; font-size:20px; margin:8px 0 2px; }
+  .help-btn { width:22px; height:22px; border-radius:50%; border:none;
+              background:#3d3529; color:#f5efdf; font-size:13px; font-weight:700;
+              cursor:pointer; vertical-align:middle; margin-left:4px; padding:0;
+              line-height:22px; }
   .sub { text-align:center; color:#8a7c63; font-size:12px; margin-bottom:14px; }
+  .logic { background:#fbf8f0; border:1px solid rgba(61,53,41,0.12);
+           border-radius:12px; margin-bottom:14px; }
+  .logic-body { padding:14px; font-size:12px; line-height:1.7; color:#5f5545; }
+  .lg-close-row { text-align:right; margin-bottom:6px; }
+  .lg-close { background:none; border:none; color:#a08a68; font-size:12px; cursor:pointer; }
+  .lg-step { padding:7px 10px; background:#f5efdf; border-radius:8px; margin-bottom:6px; }
+  .lg-step b { color:#3d3529; }
+  .lg-badge-title { margin-top:12px; font-weight:700; color:#7a6f5d; font-size:12px; }
+  .lg-badge-desc { padding:8px 10px; background:#eee3cc; border-radius:8px; margin-top:6px;
+                   color:#5c4a28; line-height:2.1; }
+  .lg-note { margin-top:10px; color:#a08a68; font-size:11px; }
   .summary { background:#fbf8f0; border:1px solid rgba(61,53,41,0.12);
              border-radius:12px; padding:12px 14px; margin-bottom:14px; }
   .summary h2 { font-size:13px; color:#7a6f5d; margin:0 0 8px; font-weight:700; }
@@ -25,15 +40,7 @@
   .combo-tbl th:first-child, .combo-tbl td:first-child { text-align:left; }
   .combo-tbl thead th { color:#a08a68; border-bottom:1px solid rgba(61,53,41,0.1); }
   .zonetabs { display:flex; gap:6px; margin-bottom:12px; }
-  .logic { background:#fbf8f0; border:1px solid rgba(61,53,41,0.12);
-           border-radius:12px; margin-bottom:14px; overflow:hidden; }
-  .logic summary { padding:12px 14px; cursor:pointer; font-size:13px;
-                   font-weight:700; color:#7a6f5d; list-style:none; }
-  .logic summary::-webkit-details-marker { display:none; }
-  .logic summary::before { content:'▸ '; color:#a08a68; }
-  .logic[open] summary::before { content:'▾ '; }
-  .logic-body { padding:0 14px 14px; font-size:12px; line-height:1.7; color:#5f5545; }
-  .lg-step { padding:7px 10px; background:#f5efdf; border-radius:8px; margin-bottom:6px; }
+  .logic-body2 { }
   .lg-step b { color:#3d3529; }
   .lg-badge-title { margin-top:12px; font-weight:700; color:#7a6f5d; font-size:12px; }
   .lg-badge-desc { padding:8px 10px; background:#eee3cc; border-radius:8px; margin-top:6px;
@@ -69,8 +76,28 @@
 <body>
 <a class="home" href="index.html">🏠</a>
 <div class="wrap">
-  <h1>⭐ 오늘의 추천</h1>
+  <h1>⭐ 오늘의 추천 <button class="help-btn" id="helpBtn" aria-label="추천 로직 설명">?</button></h1>
   <div class="sub" id="updated">성과 갱신: --</div>
+
+  <div class="logic" id="logicBox" style="display:none">
+    <div class="logic-body">
+      <div class="lg-close-row"><button class="lg-close" id="logicClose">✕ 닫기</button></div>
+      <div class="lg-step"><b>① 공포 국면</b><br>코스피 신고가 비율이 15% 이하 (곡소리 나는 조정 구간). 이때만 종목을 찾아요.</div>
+      <div class="lg-step"><b>② 주도주 추출</b><br>시총 상위 종목 중 최근 3개월간 코스피보다 강했던(우상향) 종목만.</div>
+      <div class="lg-step"><b>③ 세력 매집 판단</b> (핵심)<br>외국인·기관이 <b>5일 연속 순매수</b> 중이고, <b>누적순매수선이 우상향</b>(파도가 들어오는 중)일 때.</div>
+      <div class="lg-step"><b>④ 안전마진</b><br>현재가가 세력 추정평단가 ±5% 안 (세력과 비슷하거나 싼 값).</div>
+      <div class="lg-step"><b>⑤ 추천</b><br>①~④를 모두 통과하면 그날 종가 기준으로 추천에 기록해요.</div>
+      <div class="lg-badge-title">배지는 무슨 뜻인가요?</div>
+      <div class="lg-badge-desc">
+        <span class="badge">🌍</span> 외국인이 5일 연속 순매수<br>
+        <span class="badge">🏛️</span> 기관이 5일 연속 순매수<br>
+        <span class="badge">🌍🏛️</span> 둘 다 5일 연속 (가장 강한 손)<br>
+        <span class="badge">20일 상승세</span> 누적순매수선이 20일 기준 우상향<br>
+        <span class="badge">60일 상승세</span> 60일 기준 우상향 (더 긴 흐름)
+      </div>
+      <div class="lg-note">※ 여러 기준을 각각 기록해, 어느 기준이 실제로 좋은지 성과표에서 비교해요.</div>
+    </div>
+  </div>
   <div class="summary">
     <h2>📊 누적 성과 (추천 후 현재까지)</h2>
     <div class="stat-row">
@@ -87,24 +114,6 @@
       <tbody id="combo-body"></tbody>
     </table>
   </div>
-  <details class="logic">
-    <summary>🔍 추천 로직 보기 (어떻게 뽑나요?)</summary>
-    <div class="logic-body">
-      <div class="lg-step"><b>① 공포 국면</b><br>코스피 신고가 비율이 15% 이하 (곡소리 나는 조정 구간). 이때만 종목을 찾아요.</div>
-      <div class="lg-step"><b>② 주도주 추출</b><br>시총 상위 종목 중 최근 3개월간 코스피보다 강했던(우상향) 종목만.</div>
-      <div class="lg-step"><b>③ 세력 매집 판단</b> (핵심)<br>외국인·기관이 <b>5일 연속 순매수</b> 중이고, <b>누적순매수선이 우상향</b>(파도가 들어오는 중)일 때.</div>
-      <div class="lg-step"><b>④ 안전마진</b><br>현재가가 세력 추정평단가 ±5% 안 (세력과 비슷하거나 싼 값).</div>
-      <div class="lg-step"><b>⑤ 추천</b><br>①~④를 모두 통과하면 그날 종가 기준으로 추천에 기록해요.</div>
-      <div class="lg-badge-title">배지(A_20 등)는 무슨 뜻인가요?</div>
-      <div class="lg-badge-desc">
-        <b>A</b> = 외국인 <b>또는</b> 기관이 5일 연속 순매수<br>
-        <b>B</b> = 외국인 <b>그리고</b> 기관 <b>둘 다</b> 5일 연속 (더 엄격)<br>
-        <b>20 / 60</b> = 누적순매수선 기울기를 20일 / 60일 기준으로 봄<br>
-        예: <b>B_60</b> = 외인·기관 둘 다 5일 연속 + 60일 누적선 우상향 (가장 강한 신호)
-      </div>
-      <div class="lg-note">※ 4가지 조합을 각각 기록해, 어느 기준이 실제로 좋은지 성과표에서 비교해요.</div>
-    </div>
-  </details>
   <div class="zonetabs">
     <button class="ztab active" data-zone="전체">전체</button>
     <button class="ztab" data-zone="5%이하">5% 이하</button>
@@ -149,10 +158,17 @@ function renderSummary(){
   const cb = PERF.조합별 || {};
   document.getElementById('combo-body').innerHTML = ['A_20','A_60','B_20','B_60'].map(function(c){
     const s = cb[c]||{};
-    return '<tr><td>'+c+'</td><td>'+(s.추천수??0)+'</td>'+
+    return '<tr><td>'+badgeLabel(c)+'</td><td>'+(s.추천수??0)+'</td>'+
            '<td>'+(s.평균수익률!=null?fmtPct(s.평균수익률):'-')+'</td>'+
            '<td>'+(s.승률!=null?s.승률+'%':'-')+'</td></tr>';
   }).join('');
+}
+function badgeLabel(code){
+  // A_20 → 🌍 또는 🏛️ + '20일 상승세' 로 변환
+  var parts = code.split('_');
+  var ab = parts[0], win = parts[1];
+  var who = (ab==='B') ? '🌍🏛️' : '🌍';   // A는 하나라도(대표로 🌍), B는 둘다
+  return who + ' ' + win + '일 상승세';
 }
 function renderDay(){
   if(dates.length===0){
@@ -177,7 +193,7 @@ function renderDay(){
     return;
   }
   document.getElementById('cards').innerHTML = rows.map(function(r){
-    const badges = (r.통과조합||[]).map(function(c){return '<span class="badge">'+c+'</span>';}).join('');
+    const badges = (r.통과조합||[]).map(function(c){return '<span class="badge">'+badgeLabel(c)+'</span>';}).join('');
     return '<div class="card"><div class="top">'+
       '<span class="nm">'+r.종목명+'<span class="cd">'+r.종목코드+'</span></span>'+
       '<span class="ret">'+fmtPct(r['수익률(%)'])+'</span></div>'+
@@ -200,6 +216,13 @@ Array.prototype.forEach.call(document.querySelectorAll('.ztab'), function(btn){
 });
 document.getElementById('prev').onclick = function(){ if(idx>0){idx--; renderDay();} };
 document.getElementById('next').onclick = function(){ if(idx<dates.length-1){idx++; renderDay();} };
+document.getElementById('helpBtn').onclick = function(){
+  var box = document.getElementById('logicBox');
+  box.style.display = (box.style.display==='none') ? 'block' : 'none';
+};
+document.getElementById('logicClose').onclick = function(){
+  document.getElementById('logicBox').style.display = 'none';
+};
 renderSummary(); renderDay();
 </script>
 </body>
