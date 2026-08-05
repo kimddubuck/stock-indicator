@@ -31,6 +31,24 @@
   .pg .nm { font-size:14px; font-weight:700; }
   .pg .ex { font-size:12px; color:#7a6f5d; }
   .foot { font-size:11px; color:#a08a68; text-align:center; margin-top:22px; }
+  /* ⭐ 오늘의 추천 5단계 흐름도 (깔때기 필터) */
+  .flow { margin:4px 0 2px; }
+  .flow-top, .flow-end { text-align:center; font-weight:700; border-radius:12px;
+           padding:11px 12px; font-size:13px; }
+  .flow-top { background:#e8ddc6; color:#5c4a28; }
+  .flow-end { background:#3d3529; color:#f5efdf; font-size:14px; }
+  .flow-step { background:#fbf8f0; border:1px solid rgba(61,53,41,0.14);
+           border-radius:12px; padding:10px 13px; }
+  .flow-step .st-h { font-size:13.5px; font-weight:700; margin-bottom:3px;
+           display:flex; align-items:center; gap:6px; }
+  .flow-step .st-d { font-size:11.5px; color:#7a6f5d; line-height:1.55; }
+  .flow-arrow { text-align:center; color:#c0392b; font-size:12px; font-weight:700;
+           padding:5px 0; line-height:1.2; }
+  .flow-arrow .drop { color:#a08a68; font-weight:400; font-size:10.5px; }
+  .flow-note { background:#eee3cc; border-radius:12px; padding:11px 14px; margin-top:10px; }
+  .flow-note .row { font-size:11.5px; color:#8a7f6d; margin-bottom:5px; line-height:1.55; }
+  .flow-note .row:last-child { margin-bottom:0; }
+  .flow-note .row b { color:#5c4a28; }
 </style>
 </head>
 <body>
@@ -68,14 +86,36 @@
       매일 자동으로 걸러 주는 것</b>이 바로 오늘의 추천입니다.
       아래 <b>5단계 조건을 모두 통과</b>한 종목만 추천에 오릅니다. 하나라도 걸리면 탈락이에요.</div>
   </div>
-  <div class="how">
-    <div class="row" style="font-weight:700; margin-bottom:8px;">🎯 5단계 관문 (모두 통과해야 추천)</div>
-    <div class="row">① 😱 <b>공포 국면인가</b> — 시장이 얼어붙은(신고가 종목이 적은) 날에만 계산합니다. 남들이 팔 때 담는다는 원칙.</div>
-    <div class="row">② 🎯 <b>주도주인가</b> — 최근 3개월 우상향 상위 100종목 중, 시가총액 50위 이내의 강한 우량주만.</div>
-    <div class="row">③ 🌊 <b>세력이 매집 중인가</b> — 외국인이나 기관이 <b>5일 이상 연속 순매수</b>이면서 <b>누적 매수선이 우상향</b>. (이게 '들어오는 파도')</div>
-    <div class="row">④ 🛡️ <b>안전마진이 있는가</b> — 지금 가격이 큰손 추정 평단보다 싸거나, 비싸도 +5% 이내. 큰손보다 훨씬 비싸게 따라 사지 않기.</div>
-    <div class="row" style="margin-top:8px; color:#8a7f6d;">※ ③의 '매집'은 외국인·기관을 <b>각자 따로</b> 봅니다. 한쪽이 조금 팔아도 다른 쪽이 확실히 매집하면 통과 — 억울한 탈락을 막는 규칙이에요.</div>
-    <div class="row" style="margin-top:6px; color:#8a7f6d;">※ 조건에 맞는 종목이 없는 날은 <b>추천이 0개</b>일 수 있습니다. 억지로 만들지 않아요.</div>
+  <div class="how" style="background:transparent; padding:0;">
+    <div class="flow">
+      <div class="flow-top">📊 시장 전체 종목</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="st-h">① 😱 공포 국면인가?</div>
+        <div class="st-d">시장이 얼어붙은(신고가 종목이 적은) 날에만 계산. 남들이 팔 때 담는다는 원칙.</div>
+      </div>
+      <div class="flow-arrow">↓ 통과 <span class="drop">· 아니면 오늘은 추천 없음</span></div>
+      <div class="flow-step">
+        <div class="st-h">② 🎯 주도주인가?</div>
+        <div class="st-d">최근 3개월 우상향 상위 100종목 중, 시가총액 50위 이내의 강한 우량주만.</div>
+      </div>
+      <div class="flow-arrow">↓ 통과 <span class="drop">· 아니면 탈락</span></div>
+      <div class="flow-step">
+        <div class="st-h">③ 🌊 세력이 매집 중인가?</div>
+        <div class="st-d">외국인이나 기관이 <b>5일 이상 연속 순매수</b>이면서 <b>누적 매수선이 우상향</b>. (이게 '들어오는 파도')</div>
+      </div>
+      <div class="flow-arrow">↓ 통과 <span class="drop">· 아니면 탈락</span></div>
+      <div class="flow-step">
+        <div class="st-h">④ 🛡️ 안전마진이 있는가?</div>
+        <div class="st-d">지금 가격이 큰손 추정 평단보다 싸거나, 비싸도 +5% 이내. 큰손보다 훨씬 비싸게 따라 사지 않기.</div>
+      </div>
+      <div class="flow-arrow">↓ 통과 <span class="drop">· 아니면 탈락</span></div>
+      <div class="flow-end">⭐ 오늘의 추천!</div>
+    </div>
+    <div class="flow-note">
+      <div class="row">※ ③의 '매집'은 외국인·기관을 <b>각자 따로</b> 봅니다. 한쪽이 조금 팔아도 다른 쪽이 확실히 매집하면 통과 — 억울한 탈락을 막는 규칙이에요.</div>
+      <div class="row">※ 관문을 모두 통과한 종목이 없는 날은 <b>추천이 0개</b>일 수 있습니다. 억지로 만들지 않아요.</div>
+    </div>
   </div>
 
   <div class="sec-title">📱 페이지 안내</div>
